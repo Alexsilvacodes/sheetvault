@@ -1,0 +1,758 @@
+{
+  "name": "Blades in the Dark",
+  "slug": "blades-in-the-dark",
+  "schema": {
+    "version": "2.2",
+    "type": "character",
+    "attributes": {
+      "insight": {
+        "label": "Perspicacia",
+        "labelEn": "Insight",
+        "actions": {
+          "hunt": { "label": "Cazar", "labelEn": "Hunt", "max": 4 },
+          "study": { "label": "Estudiar", "labelEn": "Study", "max": 4 },
+          "survey": { "label": "Analizar", "labelEn": "Survey", "max": 4 },
+          "tinker": { "label": "Trastear", "labelEn": "Tinker", "max": 4 }
+        }
+      },
+      "prowess": {
+        "label": "Destreza",
+        "labelEn": "Prowess",
+        "actions": {
+          "finesse": { "label": "Afinar", "labelEn": "Finesse", "max": 4 },
+          "prowl": { "label": "Acechar", "labelEn": "Prowl", "max": 4 },
+          "skirmish": { "label": "Pelear", "labelEn": "Skirmish", "max": 4 },
+          "wreck": { "label": "Destrozar", "labelEn": "Wreck", "max": 4 }
+        }
+      },
+      "resolve": {
+        "label": "Voluntad",
+        "labelEn": "Resolve",
+        "actions": {
+          "attune": { "label": "Armonizar", "labelEn": "Attune", "max": 4 },
+          "command": { "label": "Mandar", "labelEn": "Command", "max": 4 },
+          "consort": { "label": "Socializar", "labelEn": "Consort", "max": 4 },
+          "sway": { "label": "Influir", "labelEn": "Sway", "max": 4 }
+        }
+      }
+    },
+    "heritages": [
+      { "value": "akoros", "label": "Akoros", "description": "La ciudad capital industrial, llena de fábricas y humo" },
+      { "value": "iruvia", "label": "Iruvia", "description": "Una tierra lejana de desiertos y misterio" },
+      { "value": "las-islas-daga", "label": "Las Islas Daga", "description": "Islas dispersas, conocidas por piratas y contrabandistas" },
+      { "value": "severos", "label": "Severos", "description": "Un pueblo duro de las tierras heladas del norte" },
+      { "value": "skovlan", "label": "Skovlan", "description": "Un pueblo orgulloso, recientemente conquistado" },
+      { "value": "tycheros", "label": "Tycheros", "description": "Gente extraña y misteriosa con rasgos demoníacos" }
+    ],
+    "backgrounds": [
+      { "value": "academico", "label": "Académico", "description": "Un erudito, científico o estudioso" },
+      { "value": "bajos-fondos", "label": "Bajos Fondos", "description": "Criado en la pobreza y el crimen callejero" },
+      { "value": "comercial", "label": "Comercial", "description": "Mercader, comerciante o negociante" },
+      { "value": "derecho", "label": "Derecho", "description": "Abogado, juez o funcionario legal" },
+      { "value": "militar", "label": "Militar", "description": "Soldado, marinero o mercenario" },
+      { "value": "nobleza", "label": "Nobleza", "description": "De familia noble o de alta sociedad" },
+      { "value": "obrero", "label": "Obrero", "description": "Trabajador manual, artesano o jornalero" }
+    ],
+    "vices": [
+      { "value": "fe", "label": "Fe", "description": "Devoción a una deidad o causa espiritual" },
+      { "value": "juego", "label": "Juego", "description": "Apuestas, juegos de azar y riesgos" },
+      { "value": "lujo", "label": "Lujo", "description": "Vida extravagante, ropa fina, buena comida" },
+      { "value": "obligacion", "label": "Obligación", "description": "Un deber o responsabilidad que te ata" },
+      { "value": "placer", "label": "Placer", "description": "Sensualidad, romance y gratificación" },
+      { "value": "sobrenatural", "label": "Sobrenatural", "description": "Fascinación con lo oculto y lo arcano" },
+      { "value": "sopor", "label": "Sopor", "description": "Drogas, alcohol u otros estupefacientes" }
+    ],
+    "traumaConditions": [
+      { "value": "atormentado", "label": "Atormentado", "labelEn": "Haunted" },
+      { "value": "blando", "label": "Blando", "labelEn": "Soft" },
+      { "value": "feroz", "label": "Feroz", "labelEn": "Vicious" },
+      { "value": "frio", "label": "Frío", "labelEn": "Cold" },
+      { "value": "imprudente", "label": "Imprudente", "labelEn": "Reckless" },
+      { "value": "inestable", "label": "Inestable", "labelEn": "Unstable" },
+      { "value": "obsesionado", "label": "Obsesionado", "labelEn": "Obsessed" },
+      { "value": "paranoide", "label": "Paranoide", "labelEn": "Paranoid" }
+    ],
+    "sharedItems": [
+      { "name": "Una o dos armas blancas", "nameEn": "A Blade or Two", "load": 1 },
+      { "name": "Cuchillos arrojadizos", "nameEn": "Throwing Knives", "load": 1 },
+      { "name": "Una pistola", "nameEn": "A Pistol", "load": 1 },
+      { "name": "Una 2ª pistola", "nameEn": "A 2nd Pistol", "load": 1 },
+      { "name": "Un arma grande", "nameEn": "A Large Weapon", "load": 2 },
+      { "name": "Un arma inusual", "nameEn": "An Unusual Weapon", "load": 1 },
+      { "name": "Protección", "nameEn": "Armor", "load": 2 },
+      { "name": "+Pesada", "nameEn": "+Heavy", "load": 3 },
+      { "name": "Equipo de robo", "nameEn": "Burglary Gear", "load": 1 },
+      { "name": "Equipo de escalada", "nameEn": "Climbing Gear", "load": 2 },
+      { "name": "Utensilios arcanos", "nameEn": "Arcane Implements", "load": 1 },
+      { "name": "Documentos", "nameEn": "Documents", "load": 1 },
+      { "name": "Suministros de subterfugio", "nameEn": "Subterfuge Supplies", "load": 1 },
+      { "name": "Herramientas de demolición", "nameEn": "Demolition Tools", "load": 2 },
+      { "name": "Herramientas de ajuste", "nameEn": "Tinkering Tools", "load": 1 },
+      { "name": "Linterna", "nameEn": "Lantern", "load": 1 }
+    ],
+    "teamwork": [
+      { "value": "ayudar", "label": "Ayudar", "labelEn": "Assist" },
+      { "value": "liderar", "label": "Liderar", "labelEn": "Lead" },
+      { "value": "proteger", "label": "Proteger", "labelEn": "Protect" },
+      { "value": "preparacion", "label": "Preparación", "labelEn": "Set Up" }
+    ],
+    "planTypes": [
+      { "value": "asalto", "label": "Asalto", "labelEn": "Assault", "description": "Violencia directa contra un objetivo" },
+      { "value": "sigilo", "label": "Sigilo", "labelEn": "Stealth", "description": "Infiltración encubierta" },
+      { "value": "engano", "label": "Engaño", "labelEn": "Deception", "description": "Mentiras y subterfugio" },
+      { "value": "social", "label": "Social", "labelEn": "Social", "description": "Negociación y persuasión" },
+      { "value": "ocultista", "label": "Ocultista", "labelEn": "Occult", "description": "Poderes arcanos y sobrenaturales" },
+      { "value": "transporte", "label": "Transporte", "labelEn": "Transport", "description": "Mover personas o cosas" }
+    ],
+    "playbooks": {
+      "sajador": {
+        "name": "Sajador",
+        "nameEn": "Cutter",
+        "description": "Un guerrero peligroso e intimidante",
+        "descriptionEn": "A dangerous and intimidating fighter",
+        "specialAbilities": [
+          {
+            "name": "Guerrero nato",
+            "nameEn": "Battleborn",
+            "description": "Puedes gastar tu protección especial para reducir el daño de un ataque en combate o para esforzarte en una pelea."
+          },
+          {
+            "name": "Brutal",
+            "nameEn": "Brutal",
+            "description": "Tu violencia física desatada es aterradora. Cuando Mandar a un objetivo aterrorizado, ganas +1d."
+          },
+          {
+            "name": "Guerrero fantasmal",
+            "nameEn": "Ghost Fighter",
+            "description": "Puedes imbuir tus manos, armas cuerpo a cuerpo o herramientas con energía espiritual, dándote potencia contra lo sobrenatural. Puedes agarrar espíritus para inmovilizarlos y capturarlos."
+          },
+          {
+            "name": "Guardaespaldas",
+            "nameEn": "Bodyguard",
+            "description": "Cuando proteges a un compañero, resistes con +1d. Cuando recopilas información para anticipar amenazas, ganas +1 efecto."
+          },
+          {
+            "name": "Líder",
+            "nameEn": "Leader",
+            "description": "Cuando Mandas a una cohorte en combate, siguen luchando aunque estén devastados (no se retiran por daño de nivel 3) y obtienen +1 efecto y 1 protección."
+          },
+          {
+            "name": "Mula",
+            "nameEn": "Mule",
+            "description": "Tu capacidad de carga es mayor: Ligera 5, Normal 7, Pesada 8."
+          },
+          {
+            "name": "No juegues conmigo",
+            "nameEn": "Not to be Trifled With",
+            "description": "Puedes esforzarte para realizar una hazaña de fuerza casi sobrehumana o para enfrentarte a una pequeña banda en igualdad de condiciones."
+          },
+          {
+            "name": "Vigoroso",
+            "nameEn": "Vigorous",
+            "description": "Te recuperas más rápido del daño (rellena un segmento de reloj de curación permanentemente). +1d a las tiradas de tratamiento de curación."
+          },
+          {
+            "name": "Veterano",
+            "nameEn": "Veteran",
+            "description": "Elige una capacidad especial de otra ficha de personaje."
+          }
+        ],
+        "friends": [
+          { "name": "Marlane", "description": "Una contrabandista" },
+          { "name": "Chael", "description": "Un matón" },
+          { "name": "Mercy", "description": "Una asesina de frío corazón" },
+          { "name": "Grace", "description": "Una vendedora de información" },
+          { "name": "Sawtooth", "description": "Un médico callejero" }
+        ],
+        "rivals": [
+          { "name": "Marlane", "description": "Una contrabandista" },
+          { "name": "Chael", "description": "Un matón" },
+          { "name": "Mercy", "description": "Una asesina de frío corazón" },
+          { "name": "Grace", "description": "Una vendedora de información" },
+          { "name": "Sawtooth", "description": "Un médico callejero" }
+        ],
+        "items": [
+          { "name": "Arma corpulenta", "nameEn": "Fine heavy weapon", "load": 2, "description": "Un arma pesada de gran calidad" },
+          { "name": "Arma discreta", "nameEn": "Fine hand weapon", "load": 1, "description": "Un arma ligera de gran calidad" },
+          { "name": "Armadura de placas", "nameEn": "Fine heavy armor", "load": 0, "description": "Protección pesada de gran calidad (usa tu ranura de armadura pesada)" },
+          { "name": "Intimidante porte", "nameEn": "Scary weapon or tool", "load": 1, "description": "Un arma o herramienta que impone temor" },
+          { "name": "Manoplas", "nameEn": "Manacles & chain", "load": 0, "description": "Esposas y cadena para restringir" },
+          { "name": "Atavío de duelo", "nameEn": "Rage essence vial", "load": 0, "description": "Una dosis de esencia de furia" }
+        ],
+        "xpTrigger": "Dirígete a una situación de peligro o ataca a un rival superior.",
+        "xpTriggerEn": "Address a challenge with violence or coercion.",
+        "gatherInfo": [
+          "¿Cómo puedo superar a este oponente en combate directo?",
+          "¿Cuál es su punto débil en una pelea?",
+          "¿Qué arma o equipo me daría ventaja aquí?",
+          "¿Quién podría intimidar para que se rinda o coopere?",
+          "¿Dónde puedo montar una emboscada o trampa?",
+          "¿Hay alguien que se interponga en mi camino?"
+        ]
+      },
+      "sabueso": {
+        "name": "Sabueso",
+        "nameEn": "Hound",
+        "description": "Un certero rastreador y francotirador",
+        "descriptionEn": "A deadly sharpshooter and tracker",
+        "specialAbilities": [
+          {
+            "name": "Tirador de primera",
+            "nameEn": "Sharpshooter",
+            "description": "Puedes esforzarte para: realizar un ataque más allá del alcance de tu arma, o fuego de supresión para inmovilizar a los enemigos."
+          },
+          {
+            "name": "Cazador fantasmal",
+            "nameEn": "Ghost Hunter",
+            "description": "Tu animal de caza está imbuido con energía espiritual, tiene potencia contra lo sobrenatural, y gana una habilidad arcana (forma fantasmal, vínculo mental o velocidad de flecha). Al elegirlo de nuevo, gana otra habilidad."
+          },
+          {
+            "name": "Concentración",
+            "nameEn": "Focus",
+            "description": "Puedes gastar tu protección especial para resistir una sorpresa o daño mental, o esforzarte en combate a distancia o rastreo."
+          },
+          {
+            "name": "Duro como una piedra",
+            "nameEn": "Tough as Nails",
+            "description": "Las penalizaciones de heridas son un nivel menos severas (el daño de nivel 4 sigue siendo fatal)."
+          },
+          {
+            "name": "Explorador",
+            "nameEn": "Scout",
+            "description": "+1 efecto cuando recopilas información para descubrir la ubicación de un objetivo. +1d para evitar ser detectado cuando estás en una posición ventajosa o usando camuflaje."
+          },
+          {
+            "name": "Superviviente",
+            "nameEn": "Survivor",
+            "description": "Eres inmune al miasma venenoso de las Tierras Muertas; puedes subsistir de su extraña flora y fauna. +1 casilla de estrés."
+          },
+          {
+            "name": "Vengativo",
+            "nameEn": "Vengeful",
+            "description": "Ganas un disparador de XP adicional: vengarte de alguien que te hizo daño a ti o a alguien que te importa. Si la banda ayuda, también marcan XP de banda."
+          },
+          {
+            "name": "Veterano",
+            "nameEn": "Veteran",
+            "description": "Elige una capacidad especial de otra ficha de personaje."
+          }
+        ],
+        "friends": [
+          { "name": "Steiner", "description": "Un asesino" },
+          { "name": "Celene", "description": "Una contrabandista" },
+          { "name": "Melvir", "description": "Un médico de la calle" },
+          { "name": "Veleris", "description": "Un espía" },
+          { "name": "Casta", "description": "Una traficante de armas" }
+        ],
+        "rivals": [
+          { "name": "Steiner", "description": "Un asesino" },
+          { "name": "Celene", "description": "Una contrabandista" },
+          { "name": "Melvir", "description": "Un médico de la calle" },
+          { "name": "Veleris", "description": "Un espía" },
+          { "name": "Casta", "description": "Una traficante de armas" }
+        ],
+        "items": [
+          { "name": "Pistola de precisión", "nameEn": "Fine pair of pistols", "load": 1, "description": "Un par de pistolas de gran calidad" },
+          { "name": "Rifle largo", "nameEn": "Fine long rifle", "load": 2, "description": "Un rifle de largo alcance de gran calidad" },
+          { "name": "Catalejo", "nameEn": "Spyglass", "load": 1, "description": "Un catalejo para observación" },
+          { "name": "Trampas y cerrojos", "nameEn": "A trained hunting pet", "load": 0, "description": "Un animal de caza entrenado" },
+          { "name": "Munición especial", "nameEn": "Electroplasmic ammunition", "load": 1, "description": "Munición que afecta a entidades sobrenaturales" },
+          { "name": "Capa de camuflaje", "nameEn": "Fine cover identity", "load": 0, "description": "Una identidad falsa bien preparada" }
+        ],
+        "xpTrigger": "Dirígete a una situación de peligro rastreando o usando la violencia precisa.",
+        "xpTriggerEn": "Address a challenge with tracking or violence.",
+        "gatherInfo": [
+          "¿A dónde fue mi objetivo?",
+          "¿Cuáles son los hábitos y rutinas de mi objetivo?",
+          "¿Quién puede darme información sobre este objetivo?",
+          "¿Cuál es la mejor posición de tiro?",
+          "¿Qué trampas o seguridad protegen este lugar?",
+          "¿Qué pistas ha dejado mi objetivo?"
+        ]
+      },
+      "sanguijuela": {
+        "name": "Sanguijuela",
+        "nameEn": "Leech",
+        "description": "Un saboteador y mente analítica",
+        "descriptionEn": "A saboteur and technician",
+        "specialAbilities": [
+          {
+            "name": "Alquimista",
+            "nameEn": "Alchemist",
+            "description": "+1 nivel de resultado cuando inventas o fabricas creaciones alquímicas. Empiezas con una fórmula especial."
+          },
+          {
+            "name": "Analista",
+            "nameEn": "Analyst",
+            "description": "Durante el tiempo libre, rellena 2 segmentos en un proyecto a largo plazo (investigación, fórmulas, planes) o 1 segmento en dos relojes diferentes."
+          },
+          {
+            "name": "Artificiero",
+            "nameEn": "Artificer",
+            "description": "+1 nivel de resultado cuando inventas o fabricas tecnología spark-craft. Empiezas con un diseño especial."
+          },
+          {
+            "name": "Fortaleza",
+            "nameEn": "Fortitude",
+            "description": "Puedes gastar tu protección especial para resistir fatiga, debilidad o efectos alquímicos, o esforzarte cuando trabajas con habilidades técnicas o sustancias alquímicas."
+          },
+          {
+            "name": "Médico",
+            "nameEn": "Physicker",
+            "description": "Puedes Trastear con huesos, sangre y humores para tratar heridas o estabilizar a los moribundos. Estudiar una enfermedad o cadáver. Todos los compañeros de banda (incluido tú) obtienen +1d a las tiradas de tratamiento de curación."
+          },
+          {
+            "name": "Protección fantasmal",
+            "nameEn": "Ghost Ward",
+            "description": "Puedes Destrozar un área con sustancias arcanas haciéndola estéril (anatema o tentadora para los espíritus, tú eliges)."
+          },
+          {
+            "name": "Saboteador",
+            "nameEn": "Saboteur",
+            "description": "Puedes Destrozar de forma mucho más sigilosa de lo habitual; el daño no se nota fácilmente en una inspección casual."
+          },
+          {
+            "name": "Venenoso",
+            "nameEn": "Venomous",
+            "description": "Eres inmune a una droga o veneno (de tu bandolera). Puedes esforzarte para secretarlo a través de la piel/saliva o exhalarlo como vapor."
+          },
+          {
+            "name": "Veterano",
+            "nameEn": "Veteran",
+            "description": "Elige una capacidad especial de otra ficha de personaje."
+          }
+        ],
+        "friends": [
+          { "name": "Stazia", "description": "Una alquimista" },
+          { "name": "Veldren", "description": "Un médico" },
+          { "name": "Eckerd", "description": "Un ladrón de tumbas" },
+          { "name": "Jul", "description": "Una falsificadora" },
+          { "name": "Malista", "description": "Una comerciante del mercado negro" }
+        ],
+        "rivals": [
+          { "name": "Stazia", "description": "Una alquimista" },
+          { "name": "Veldren", "description": "Un médico" },
+          { "name": "Eckerd", "description": "Un ladrón de tumbas" },
+          { "name": "Jul", "description": "Una falsificadora" },
+          { "name": "Malista", "description": "Una comerciante del mercado negro" }
+        ],
+        "items": [
+          { "name": "Bandolera alquímica", "nameEn": "Fine alchemicals", "load": 1, "description": "Compuestos alquímicos de calidad" },
+          { "name": "Herramientas de relojería", "nameEn": "Fine tinkering tools", "load": 1, "description": "Herramientas de precisión de calidad" },
+          { "name": "Trampas y mecanismos", "nameEn": "Blowgun & darts, syringes", "load": 1, "description": "Cerbatana, dardos y jeringas" },
+          { "name": "Venenos variados", "nameEn": "Bandolier of alchemicals", "load": 2, "description": "Bandolera con distintos venenos" },
+          { "name": "Guantes protectores", "nameEn": "Gadgets", "load": 1, "description": "Artilugios y gadgets útiles" },
+          { "name": "Bomba de alcantarilla", "nameEn": "Demolition tools", "load": 2, "description": "Herramientas y materiales de demolición especializados" }
+        ],
+        "xpTrigger": "Dirígete a una situación de peligro con conocimiento técnico o sabotaje.",
+        "xpTriggerEn": "Address a challenge with technical skill or sabotage.",
+        "gatherInfo": [
+          "¿De qué está hecho esto? ¿Cómo funciona?",
+          "¿Cuál es el punto débil de esta estructura o mecanismo?",
+          "¿Qué sustancias se usaron aquí?",
+          "¿Cómo puedo modificar esto para mis propósitos?",
+          "¿Hay trampas o dispositivos ocultos?",
+          "¿Qué materiales necesito para construir esto?"
+        ]
+      },
+      "acechador": {
+        "name": "Acechador",
+        "nameEn": "Lurk",
+        "description": "Un ratero y espía sigiloso",
+        "descriptionEn": "A stealthy thief and spy",
+        "specialAbilities": [
+          {
+            "name": "Infiltrado",
+            "nameEn": "Infiltrator",
+            "description": "La calidad y el nivel no te afectan cuando sorteas medidas de seguridad."
+          },
+          {
+            "name": "Emboscada",
+            "nameEn": "Ambush",
+            "description": "+1d cuando atacas desde las sombras o tiendes una trampa."
+          },
+          {
+            "name": "Pericia",
+            "nameEn": "Expertise",
+            "description": "Elige una acción. Cuando lideras una acción grupal con ella, sufres como máximo 1 estrés sin importar cuántos fallos haya."
+          },
+          {
+            "name": "Pies diabólicos",
+            "nameEn": "Daredevil",
+            "description": "Puedes esforzarte para: una hazaña atlética casi sobrehumana, o maniobrar a los enemigos para que se ataquen entre sí."
+          },
+          {
+            "name": "Reflejos",
+            "nameEn": "Reflexes",
+            "description": "Siempre actúas primero cuando hay una cuestión de iniciativa (si dos personajes tienen Reflejos, actúan simultáneamente)."
+          },
+          {
+            "name": "Sombra",
+            "nameEn": "Shadow",
+            "description": "Puedes gastar tu protección especial para resistir una consecuencia de seguridad/detección, o esforzarte para una hazaña atlética o de sigilo."
+          },
+          {
+            "name": "Temerario",
+            "nameEn": "Daredevil",
+            "description": "+1d en tiradas de acción desesperadas si también aceptas -1d en las tiradas de resistencia contra las consecuencias."
+          },
+          {
+            "name": "Velo fantasmal",
+            "nameEn": "Ghost Veil",
+            "description": "Puedes entrar parcialmente en el campo fantasmal para convertirte en una sombra insustancial (2 estrés, +1 estrés por cada: durar minutos en vez de momentos, invisibilidad, flotar como un fantasma)."
+          },
+          {
+            "name": "Veterano",
+            "nameEn": "Veteran",
+            "description": "Elige una capacidad especial de otra ficha de personaje."
+          }
+        ],
+        "friends": [
+          { "name": "Telda", "description": "Una ladrona" },
+          { "name": "Darmot", "description": "Un soplón" },
+          { "name": "Frake", "description": "Un perista" },
+          { "name": "Roslyn Kellis", "description": "Una noble" },
+          { "name": "Petra", "description": "Una espía de la ciudad" }
+        ],
+        "rivals": [
+          { "name": "Telda", "description": "Una ladrona" },
+          { "name": "Darmot", "description": "Un soplón" },
+          { "name": "Frake", "description": "Un perista" },
+          { "name": "Roslyn Kellis", "description": "Una noble" },
+          { "name": "Petra", "description": "Una espía de la ciudad" }
+        ],
+        "items": [
+          { "name": "Ganzúas finas", "nameEn": "Fine lockpicks", "load": 0, "description": "Ganzúas de gran calidad" },
+          { "name": "Cuerda y garfio", "nameEn": "Fine shadow cloak", "load": 1, "description": "Una capa oscura que absorbe la luz" },
+          { "name": "Disfraz rápido", "nameEn": "Light climbing gear", "load": 1, "description": "Equipo ligero de escalada" },
+          { "name": "Herramientas de sigilo", "nameEn": "Silence potion vial", "load": 0, "description": "Un vial de poción de silencio" },
+          { "name": "Polvo oscuro", "nameEn": "Dark-sight goggles", "load": 1, "description": "Gafas para ver en la oscuridad" },
+          { "name": "Calzado silencioso", "nameEn": "Fine special footwear", "load": 0, "description": "Calzado diseñado para moverse sin hacer ruido" }
+        ],
+        "xpTrigger": "Dirígete a una situación de peligro con sigilo o engaño.",
+        "xpTriggerEn": "Address a challenge with stealth or evasion.",
+        "gatherInfo": [
+          "¿Cuáles son los puntos de entrada y salida?",
+          "¿Qué patrullas o guardias hay?",
+          "¿Dónde están los objetos de valor?",
+          "¿Hay pasadizos ocultos o rutas secretas?",
+          "¿Cuáles son los horarios de seguridad?",
+          "¿Cómo puedo pasar desapercibido aquí?"
+        ]
+      },
+      "mascara": {
+        "name": "Máscara",
+        "nameEn": "Slide",
+        "description": "Un espía y sutil manipulador",
+        "descriptionEn": "A subtle manipulator and spy",
+        "specialAbilities": [
+          {
+            "name": "El gambito de la torre",
+            "nameEn": "Rook's Gambit",
+            "description": "2 estrés para tirar tu mejor valor de acción para una acción diferente. Describe cómo te adaptas."
+          },
+          {
+            "name": "Beneficio adicional",
+            "nameEn": "A Little Something on the Side",
+            "description": "Ganas +2 depósito al final de cada tiempo libre."
+          },
+          {
+            "name": "Como mirar en un espejo",
+            "nameEn": "Like Looking in a Mirror",
+            "description": "Siempre sabes si alguien te está mintiendo."
+          },
+          {
+            "name": "Confía en mí",
+            "nameEn": "Trust in Me",
+            "description": "+1d contra un objetivo con el que tienes una relación íntima."
+          },
+          {
+            "name": "Mesmerismo",
+            "nameEn": "Mesmerism",
+            "description": "Después de Influir a alguien, haz que olviden lo que pasó (lo recuerdan cuando interactúan contigo de nuevo)."
+          },
+          {
+            "name": "Subterfugio",
+            "nameEn": "Subterfuge",
+            "description": "Puedes gastar tu protección especial para resistir una consecuencia de sospecha o persuasión, o esforzarte para subterfugio."
+          },
+          {
+            "name": "Tapadera",
+            "nameEn": "Cloak & Dagger",
+            "description": "+1d para desviar sospechas cuando estás disfrazado o usando una identidad falsa. Cuando te quitas el disfraz, la sorpresa te otorga la iniciativa."
+          },
+          {
+            "name": "Voz fantasmal",
+            "nameEn": "Ghost Voice",
+            "description": "Conoces el método secreto para interactuar con fantasmas o demonios y tratarlos como si fueran humanos. Potencia cuando te comunicas con lo sobrenatural."
+          },
+          {
+            "name": "Veterano",
+            "nameEn": "Veteran",
+            "description": "Elige una capacidad especial de otra ficha de personaje."
+          }
+        ],
+        "friends": [
+          { "name": "Bryl", "description": "Un timador" },
+          { "name": "Bazso Baz", "description": "Un líder de banda" },
+          { "name": "Klyra", "description": "Una noble" },
+          { "name": "Nyryx", "description": "Un fantasma amistoso" },
+          { "name": "Harker", "description": "Un soldado corrupto de los Capas Azules" }
+        ],
+        "rivals": [
+          { "name": "Bryl", "description": "Un timador" },
+          { "name": "Bazso Baz", "description": "Un líder de banda" },
+          { "name": "Klyra", "description": "Una noble" },
+          { "name": "Nyryx", "description": "Un fantasma amistoso" },
+          { "name": "Harker", "description": "Un soldado corrupto de los Capas Azules" }
+        ],
+        "items": [
+          { "name": "Disfraz de calidad", "nameEn": "Fine clothes & jewelry", "load": 0, "description": "Ropa fina y joyas" },
+          { "name": "Documentos falsos", "nameEn": "Fine cover identity", "load": 0, "description": "Una identidad falsa bien elaborada" },
+          { "name": "Maquillaje teatral", "nameEn": "Fine disguise kit", "load": 1, "description": "Un kit de disfraz de gran calidad" },
+          { "name": "Perfume embriagador", "nameEn": "Trance powder", "load": 0, "description": "Polvo de trance para hipnotizar" },
+          { "name": "Daga oculta", "nameEn": "A hidden blade", "load": 0, "description": "Una daga oculta en la ropa" },
+          { "name": "Documentos de la nobleza", "nameEn": "Spiritbane charm", "load": 0, "description": "Un amuleto contra espíritus" }
+        ],
+        "xpTrigger": "Dirígete a una situación de peligro con engaño o persuasión.",
+        "xpTriggerEn": "Address a challenge with deception or influence.",
+        "gatherInfo": [
+          "¿Qué quieren o necesitan estas personas?",
+          "¿Cuáles son sus debilidades emocionales?",
+          "¿Quién tiene influencia sobre esta persona?",
+          "¿Cuál es la jerarquía social aquí?",
+          "¿Qué mentiras ya se han establecido?",
+          "¿Cómo puedo ganarme la confianza de esta persona?"
+        ]
+      },
+      "arana": {
+        "name": "Araña",
+        "nameEn": "Spider",
+        "description": "Una peligrosa mente maestra",
+        "descriptionEn": "A devious mastermind",
+        "specialAbilities": [
+          {
+            "name": "Previsión",
+            "nameEn": "Foresight",
+            "description": "Ayuda a un compañero de equipo sin sufrir estrés, hasta 2 veces por golpe. Describe cómo te preparaste de antemano."
+          },
+          {
+            "name": "Calculador",
+            "nameEn": "Calculating",
+            "description": "Ganas 1 actividad de tiempo libre adicional durante el tiempo libre, para ti o para otro miembro de la banda."
+          },
+          {
+            "name": "Conexiones",
+            "nameEn": "Connected",
+            "description": "+1 nivel de resultado cuando adquieres activos o reduces calor durante el tiempo libre."
+          },
+          {
+            "name": "Contrato fantasmal",
+            "nameEn": "Ghost Contract",
+            "description": "Los acuerdos verbales o escritos colocan una marca en ambas partes (humanas o no). Si alguna rompe el contrato, sufre daño de nivel 3 \"Maldito\"."
+          },
+          {
+            "name": "Mente maestra",
+            "nameEn": "Mastermind",
+            "description": "Puedes gastar tu protección especial para proteger a un compañero, o esforzarte cuando recopilas información o trabajas en un proyecto a largo plazo."
+          },
+          {
+            "name": "Presidiario",
+            "nameEn": "Jail Bird",
+            "description": "Mientras estás encarcelado: el nivel de búsqueda cuenta como 1 menos, el Nivel cuenta como 1 más, ganas +1 estatus de facción con una facción a la que ayudas estando preso."
+          },
+          {
+            "name": "Tejiendo la telaraña",
+            "nameEn": "Weaving the Web",
+            "description": "+1d para Socializar cuando recopilas información sobre un objetivo para un golpe. +1d a la tirada de compromiso para esa operación."
+          },
+          {
+            "name": "Vicio funcional",
+            "nameEn": "Functional Vice",
+            "description": "Ajusta el resultado de tus dados de vicio en 1 o 2 (arriba o abajo). Un aliado puede hacer lo mismo cuando se entrega a su vicio."
+          },
+          {
+            "name": "Veterano",
+            "nameEn": "Veteran",
+            "description": "Elige una capacidad especial de otra ficha de personaje."
+          }
+        ],
+        "friends": [
+          { "name": "Salia", "description": "Una informante" },
+          { "name": "Augus", "description": "Un prestamista" },
+          { "name": "Jennah", "description": "Una funcionaria de la ciudad" },
+          { "name": "Riven", "description": "Un químico" },
+          { "name": "Jeren", "description": "Un líder callejero rival" }
+        ],
+        "rivals": [
+          { "name": "Salia", "description": "Una informante" },
+          { "name": "Augus", "description": "Un prestamista" },
+          { "name": "Jennah", "description": "Una funcionaria de la ciudad" },
+          { "name": "Riven", "description": "Un químico" },
+          { "name": "Jeren", "description": "Un líder callejero rival" }
+        ],
+        "items": [
+          { "name": "Cuaderno de notas cifrado", "nameEn": "Fine cover identity", "load": 0, "description": "Un cuaderno con notas en código" },
+          { "name": "Red de informantes", "nameEn": "Fine bottle of whiskey", "load": 1, "description": "Una botella de whiskey de calidad para negociar" },
+          { "name": "Documentos oficiales", "nameEn": "Blueprints", "load": 1, "description": "Planos y documentos oficiales" },
+          { "name": "Sellos y lacre", "nameEn": "Forged documents", "load": 0, "description": "Sellos y materiales para falsificar documentos" },
+          { "name": "Código secreto", "nameEn": "Spiritbane charm", "load": 0, "description": "Un amuleto contra espíritus" },
+          { "name": "Paloma mensajera", "nameEn": "A trained messenger bird", "load": 0, "description": "Un pájaro mensajero entrenado" }
+        ],
+        "xpTrigger": "Dirígete a una situación de peligro con planificación o manipulación social.",
+        "xpTriggerEn": "Address a challenge with calculation or conspiracy.",
+        "gatherInfo": [
+          "¿Quién controla esta situación realmente?",
+          "¿Cuáles son las conexiones entre estas personas?",
+          "¿Qué planes están en marcha que podría aprovechar?",
+          "¿Quién me debe un favor que pueda cobrar?",
+          "¿Cuál es la forma más eficiente de lograr este objetivo?",
+          "¿Qué consecuencias imprevistas podrían surgir?"
+        ]
+      },
+      "susurro": {
+        "name": "Susurro",
+        "nameEn": "Whisper",
+        "description": "Un adepto de lo arcano y médium",
+        "descriptionEn": "An arcane adept and spirit medium",
+        "specialAbilities": [
+          {
+            "name": "Imposición",
+            "nameEn": "Compel",
+            "description": "Armoniza con el campo fantasmal para forzar a un fantasma cercano a manifestarse y obedecer una orden. No puedes sentir terror sobrenatural de un fantasma que hayas invocado o estés obligando."
+          },
+          {
+            "name": "Mente fantasmal",
+            "nameEn": "Ghost Mind",
+            "description": "Siempre eres consciente de la presencia de entidades sobrenaturales. +1d cuando recopilas información sobre lo sobrenatural."
+          },
+          {
+            "name": "Métodos extraños",
+            "nameEn": "Strange Methods",
+            "description": "+1 nivel de resultado cuando inventas o fabricas creaciones arcanas. Empiezas con un diseño arcano."
+          },
+          {
+            "name": "Ocultista",
+            "nameEn": "Occultist",
+            "description": "Conoces los métodos secretos para Socializar con poderes antiguos, dioses olvidados o demonios. Después de contactar con una entidad, +1d para Mandar a sus adoradores."
+          },
+          {
+            "name": "Protegido",
+            "nameEn": "Warded",
+            "description": "Puedes gastar tu protección especial para resistir una consecuencia sobrenatural, o esforzarte cuando te enfrentas a fuerzas arcanas o las usas."
+          },
+          {
+            "name": "Ritual",
+            "nameEn": "Ritual",
+            "description": "Conoces los métodos arcanos para realizar rituales de hechicería. Estudia un ritual oculto (o crea uno nuevo) para invocar un efecto o ser sobrenatural. Empiezas conociendo un ritual."
+          },
+          {
+            "name": "Tempestad",
+            "nameEn": "Tempest",
+            "description": "Puedes esforzarte para: desatar un rayo como arma, o invocar una tormenta cercana (lluvia torrencial, vientos huracanados, niebla espesa, escarcha/nieve, etc.)."
+          },
+          {
+            "name": "Voluntad de hierro",
+            "nameEn": "Iron Will",
+            "description": "Eres inmune al terror de las entidades sobrenaturales. +1d a las tiradas de resistencia de Voluntad."
+          },
+          {
+            "name": "Veterano",
+            "nameEn": "Veteran",
+            "description": "Elige una capacidad especial de otra ficha de personaje."
+          }
+        ],
+        "friends": [
+          { "name": "Nyryx", "description": "Un fantasma amistoso" },
+          { "name": "Scurlock", "description": "Un vampiro antiguo" },
+          { "name": "Setarra", "description": "Un demonio cautivo" },
+          { "name": "Flint", "description": "Un contrabandista de espíritus" },
+          { "name": "Quellyn", "description": "Una bruja de los pantanos" }
+        ],
+        "rivals": [
+          { "name": "Nyryx", "description": "Un fantasma amistoso" },
+          { "name": "Scurlock", "description": "Un vampiro antiguo" },
+          { "name": "Setarra", "description": "Un demonio cautivo" },
+          { "name": "Flint", "description": "Un contrabandista de espíritus" },
+          { "name": "Quellyn", "description": "Una bruja de los pantanos" }
+        ],
+        "items": [
+          { "name": "Varita de canalización", "nameEn": "Fine lightning hook", "load": 1, "description": "Un gancho de relámpago de calidad" },
+          { "name": "Espejo espiritual", "nameEn": "Fine spirit mask", "load": 1, "description": "Una máscara espiritual de calidad" },
+          { "name": "Componentes rituales", "nameEn": "Spirit bottles", "load": 1, "description": "Botellas para atrapar espíritus" },
+          { "name": "Libro de rituales", "nameEn": "Ghost key", "load": 0, "description": "Una llave fantasma para abrir puertas espirituales" },
+          { "name": "Amuleto protector", "nameEn": "Demonbane charm", "load": 0, "description": "Un amuleto contra demonios" },
+          { "name": "Reloj de sangre", "nameEn": "Electroplasm vials", "load": 1, "description": "Viales de electroplasma" }
+        ],
+        "xpTrigger": "Dirígete a una situación de peligro con conocimiento arcano o contacto con lo sobrenatural.",
+        "xpTriggerEn": "Address a challenge with knowledge or arcane power.",
+        "gatherInfo": [
+          "¿Qué entidades sobrenaturales están presentes aquí?",
+          "¿Qué tipo de ritual sería efectivo en esta situación?",
+          "¿Hay algún artefacto arcano en esta ubicación?",
+          "¿Qué saben los fantasmas de este lugar sobre lo que ocurrió?",
+          "¿Cuáles son las propiedades místicas de este objeto?",
+          "¿Qué peligros sobrenaturales acechan en esta zona?"
+        ]
+      }
+    },
+    "stash": {
+      "max": 40,
+      "tiers": [
+        { "value": 10, "label": "Humilde", "labelEn": "Modest" },
+        { "value": 20, "label": "Acomodado", "labelEn": "Comfortable" },
+        { "value": 30, "label": "Rico", "labelEn": "Wealthy" },
+        { "value": 40, "label": "Opulento", "labelEn": "Opulent" }
+      ]
+    },
+    "loadLevels": [
+      { "value": "light", "label": "Ligera (3)", "labelEn": "Light (3)", "max": 3 },
+      { "value": "normal", "label": "Normal (5)", "labelEn": "Normal (5)", "max": 5 },
+      { "value": "heavy", "label": "Pesada (6)", "labelEn": "Heavy (6)", "max": 6 }
+    ],
+    "defaultData": {
+      "name": "",
+      "alias": "",
+      "playbook": "",
+      "look": "",
+      "crew": "",
+      "heritage": "",
+      "background": "",
+      "vice": "",
+      "vicePurveyor": "",
+      "hunt": 0,
+      "study": 0,
+      "survey": 0,
+      "tinker": 0,
+      "finesse": 0,
+      "prowl": 0,
+      "skirmish": 0,
+      "wreck": 0,
+      "attune": 0,
+      "command": 0,
+      "consort": 0,
+      "sway": 0,
+      "stress": 0,
+      "trauma": 0,
+      "traumaConditions": [],
+      "harm3": [""],
+      "harm2": ["", ""],
+      "harm1": ["", ""],
+      "healingClock": 0,
+      "armor": false,
+      "heavyArmor": false,
+      "specialArmor": false,
+      "selectedAbilities": [],
+      "insightXp": 0,
+      "prowessXp": 0,
+      "resolveXp": 0,
+      "playbookXp": 0,
+      "loadLevel": "normal",
+      "selectedItems": [],
+      "selectedPlaybookItems": [],
+      "coin": 0,
+      "stash": 0,
+      "notes": ""
+    }
+  }
+}

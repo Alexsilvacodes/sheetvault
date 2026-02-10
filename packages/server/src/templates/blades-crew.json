@@ -1,0 +1,427 @@
+{
+  "name": "Blades in the Dark - Banda",
+  "slug": "blades-crew",
+  "schema": {
+    "version": "1.0",
+    "type": "crew",
+    "crewTypes": {
+      "asesinos": {
+        "name": "Asesinos",
+        "nameEn": "Assassins",
+        "description": "Asesinos a sueldo",
+        "descriptionEn": "Killers for hire",
+        "specialAbilities": [
+          { "name": "Mortíferos", "nameEn": "Deadly", "description": "Cada miembro de la PC puede esforzarse para realizar una hazaña letal que deja una impresión duradera en el objetivo." },
+          { "name": "Aliados de las sombras", "nameEn": "Crow's Veil", "description": "Debido a su reputación, la banda no se ve interferida por las fuerzas de la ley durante los trabajos, excepto los Capas Azules." },
+          { "name": "Emboscada", "nameEn": "Emberdeath", "description": "Cuando lanzas un ataque sorpresa o ejecutas un asesinato planificado, obtienes +1 efecto." },
+          { "name": "Sin testigos", "nameEn": "No Traces", "description": "Cuando completáis un asesinato sin que se descubra la causa ni al culpable, ganáis +1 rep." },
+          { "name": "Pago en sangre", "nameEn": "Patron", "description": "Cuando completáis un trabajo, podéis exigir un pago adicional: +2 monedas por asesinato." },
+          { "name": "Ejecutores", "nameEn": "Predators", "description": "Cuando usáis amenazas o intimidación violenta para conseguir algo, ganas +1d." },
+          { "name": "Vipers", "nameEn": "Vipers", "description": "La banda obtiene +1d a las tiradas de compromiso cuando el plan tipo es asesinato." },
+          { "name": "Veteranos", "nameEn": "Veterans", "description": "Elige una habilidad especial de otra ficha de banda." }
+        ],
+        "territoryClaims": [
+          { "name": "Zona de caza", "nameEn": "Hunting Grounds", "description": "Territorio donde cazar objetivos" },
+          { "name": "Red de informantes", "nameEn": "Informants", "description": "Una red de soplones y espías" },
+          { "name": "Oficina de contratos", "nameEn": "Hagfish Farm", "description": "Lugar para recibir y negociar contratos" },
+          { "name": "Guarida secreta", "nameEn": "Victim Trophies", "description": "Escondite con trofeos y pruebas" },
+          { "name": "Cubil de interrogatorios", "nameEn": "Cover Operation", "description": "Lugar seguro para interrogar" },
+          { "name": "Almacén de armas", "nameEn": "Turf", "description": "Depósito de armas y equipo especializado" }
+        ],
+        "crewUpgrades": [
+          { "name": "Equipo de asesino I", "nameEn": "Assassin Rigging I", "description": "1 carga gratis de equipo de asesino" },
+          { "name": "Equipo de asesino II", "nameEn": "Assassin Rigging II", "description": "1 carga gratis adicional de equipo de asesino" },
+          { "name": "Equipo de élite (Sabuesos)", "nameEn": "Elite Skulks", "description": "Mejora de habilidad para Sabuesos" },
+          { "name": "Equipo de élite (Acechadores)", "nameEn": "Elite Thugs", "description": "Mejora de habilidad para Acechadores" },
+          { "name": "Atención médica", "nameEn": "Hardened", "description": "Cada PC obtiene +1 a tiradas de resistencia contra daño" },
+          { "name": "Fuerza de intimidación", "nameEn": "Ironhook Contacts", "description": "Contactos en Ironhook para reducir calor" }
+        ],
+        "huntingGrounds": [
+          { "value": "accidente", "label": "Accidente", "labelEn": "Accident", "description": "Muertes que parecen accidentales" },
+          { "value": "asesinato-discreto", "label": "Asesinato discreto", "labelEn": "Discreet Murder", "description": "Asesinatos silenciosos y sin testigos" },
+          { "value": "ejecucion-publica", "label": "Ejecución pública", "labelEn": "Public Execution", "description": "Asesinatos visibles que envían un mensaje" }
+        ],
+        "xpTrigger": "Ejecutar un contrato de asesinato o enviar un mensaje contundente.",
+        "xpTriggerEn": "Execute an assassination contract or send a violent message.",
+        "contacts": [
+          { "name": "Trev", "description": "Un carnicero de la ciudad" },
+          { "name": "Lydra", "description": "Una asesina retirada" },
+          { "name": "Irimina", "description": "Una inspectora corrupta" },
+          { "name": "Karlos", "description": "Un médico discreto" },
+          { "name": "Exeter", "description": "Un traficante de venenos" },
+          { "name": "Sevoy", "description": "Un noble con enemigos" }
+        ]
+      },
+      "bravos": {
+        "name": "Bravos",
+        "nameEn": "Bravos",
+        "description": "Matones y mercenarios",
+        "descriptionEn": "Thugs and mercenaries",
+        "specialAbilities": [
+          { "name": "Peligrosos", "nameEn": "Dangerous", "description": "Cada miembro puede esforzarse para realizar una demostración de fuerza bruta que intimida a todos los presentes." },
+          { "name": "Territorio", "nameEn": "Blood Brothers", "description": "Cuando un miembro de tu banda está en peligro, el resto obtiene +1d a las tiradas de acción para protegerlo." },
+          { "name": "Fieros", "nameEn": "Door Kickers", "description": "Cuando realizáis una incursión directa contra un objetivo defendido, obtenéis +1d en la tirada de compromiso." },
+          { "name": "Forjados en batalla", "nameEn": "Fiends", "description": "La banda gana +1 efecto en combate cuerpo a cuerpo cuando superan en número al enemigo." },
+          { "name": "Infames", "nameEn": "Forged in the Fire", "description": "Cada PC gana un bono de +1d a las tiradas de resistencia de Destreza." },
+          { "name": "Guerreros de la calle", "nameEn": "War Dogs", "description": "Cuando luchéis para defender o reclamar un territorio, ganáis +1 rep por cada enemigo notable que derrotéis." },
+          { "name": "Impunes", "nameEn": "Ironhook Contacts", "description": "Tenéis contactos en Ironhook. Cuando un miembro vaya a prisión, los demás no pierden rep." },
+          { "name": "Veteranos", "nameEn": "Veterans", "description": "Elige una habilidad especial de otra ficha de banda." }
+        ],
+        "territoryClaims": [
+          { "name": "Plaza fuerte", "nameEn": "Turf", "description": "Territorio controlado por la fuerza" },
+          { "name": "Ring de lucha", "nameEn": "Fighting Pits", "description": "Un lugar para resolver disputas y ganar coin" },
+          { "name": "Cuartel", "nameEn": "Barracks", "description": "Alojamiento para matones y soldados" },
+          { "name": "Protección", "nameEn": "Protection Racket", "description": "Negocios que pagan por protección" },
+          { "name": "Sala de entrenamiento", "nameEn": "Training Rooms", "description": "Lugar de entrenamiento para la banda" },
+          { "name": "Almacén de armas", "nameEn": "Armory", "description": "Depósito de armas y armaduras" }
+        ],
+        "crewUpgrades": [
+          { "name": "Equipo de matón I", "nameEn": "Bravos Rigging I", "description": "1 carga gratis de equipo de matón" },
+          { "name": "Equipo de matón II", "nameEn": "Bravos Rigging II", "description": "1 carga gratis adicional de equipo de matón" },
+          { "name": "Equipo de élite (Esbirros)", "nameEn": "Elite Rovers", "description": "Mejora de habilidad para Esbirros" },
+          { "name": "Equipo de élite (Matones)", "nameEn": "Elite Thugs", "description": "Mejora de habilidad para Matones" },
+          { "name": "Atención médica", "nameEn": "Hardened", "description": "Cada PC obtiene +1 a tiradas de resistencia contra daño" },
+          { "name": "Duros como el acero", "nameEn": "Ironhook Contacts", "description": "Contactos en Ironhook para reducir calor" }
+        ],
+        "huntingGrounds": [
+          { "value": "pugna", "label": "Pugna", "labelEn": "Battle", "description": "Enfrentamientos directos y violentos" },
+          { "value": "extorsion", "label": "Extorsión", "labelEn": "Extortion", "description": "Cobro de protección mediante amenazas" },
+          { "value": "defensa", "label": "Defensa", "labelEn": "Defense", "description": "Protección de territorios y personas" }
+        ],
+        "xpTrigger": "Ejecutar un trabajo violento o defender vuestro territorio.",
+        "xpTriggerEn": "Execute a violent operation or defend your turf.",
+        "contacts": [
+          { "name": "Meg", "description": "Una traficante de armas" },
+          { "name": "Conway", "description": "Un exsoldado" },
+          { "name": "Luthien", "description": "Una doctora de combate" },
+          { "name": "Brighton", "description": "Un informante callejero" },
+          { "name": "Grist", "description": "Un luchador de la fosa" },
+          { "name": "Marcy", "description": "Una entrenadora de combate" }
+        ]
+      },
+      "secta": {
+        "name": "Secta",
+        "nameEn": "Cult",
+        "description": "Adoradores de un poder oculto",
+        "descriptionEn": "Worshippers of a hidden power",
+        "specialAbilities": [
+          { "name": "Elegidos", "nameEn": "Chosen", "description": "Cada miembro de la PC puede esforzarse para conseguir una manifestación menor de los poderes de su deidad." },
+          { "name": "Culto extendido", "nameEn": "Anointed", "description": "Cada miembro de la banda obtiene +1d a las tiradas de resistencia contra efectos sobrenaturales." },
+          { "name": "Devotos", "nameEn": "Bound in Darkness", "description": "Los miembros de la secta comparten un vínculo sobrenatural. Podéis comunicaros telepáticamente a corta distancia." },
+          { "name": "Sacrilegio", "nameEn": "Conviction", "description": "Cada PC obtiene +1d cuando actúa según los dictados de la deidad de la secta." },
+          { "name": "Zelotes", "nameEn": "Zealotry", "description": "Vuestra devoción es contagiosa. Cuando reclutáis, ganáis +1 efecto. Los adeptos reclutados son fanáticamente leales." },
+          { "name": "Glorificación", "nameEn": "Glory Incarnate", "description": "Vuestra deidad os concede una bendición durante los rituales. Ganáis +1 efecto en las acciones rituales." },
+          { "name": "Santuario", "nameEn": "Sanctuary", "description": "Vuestra guarida cuenta como terreno consagrado. Los enemigos sobrenaturales no pueden entrar sin una invitación." },
+          { "name": "Veteranos", "nameEn": "Veterans", "description": "Elige una habilidad especial de otra ficha de banda." }
+        ],
+        "territoryClaims": [
+          { "name": "Templo", "nameEn": "Temple", "description": "Lugar de adoración y rituales" },
+          { "name": "Espacio sagrado", "nameEn": "Sacred Ground", "description": "Terreno con propiedades místicas" },
+          { "name": "Red de fieles", "nameEn": "Faithful Network", "description": "Seguidores repartidos por la ciudad" },
+          { "name": "Relicario", "nameEn": "Reliquary", "description": "Almacén de artefactos sagrados" },
+          { "name": "Escuela oculta", "nameEn": "Occult School", "description": "Lugar de enseñanza de lo arcano" },
+          { "name": "Santuario secreto", "nameEn": "Hidden Shrine", "description": "Un lugar secreto de poder" }
+        ],
+        "crewUpgrades": [
+          { "name": "Equipo ritual I", "nameEn": "Cult Rigging I", "description": "1 carga gratis de equipo ritual" },
+          { "name": "Equipo ritual II", "nameEn": "Cult Rigging II", "description": "1 carga gratis adicional de equipo ritual" },
+          { "name": "Equipo de élite (Adeptos)", "nameEn": "Elite Adepts", "description": "Mejora de habilidad para Adeptos" },
+          { "name": "Equipo de élite (Matones)", "nameEn": "Elite Thugs", "description": "Mejora de habilidad para Matones" },
+          { "name": "Protección espiritual", "nameEn": "Spirit Ward", "description": "Protección contra ataques sobrenaturales" },
+          { "name": "Altar consagrado", "nameEn": "Consecrated Altar", "description": "Potencia los rituales realizados en la guarida" }
+        ],
+        "huntingGrounds": [
+          { "value": "reclutamiento", "label": "Reclutamiento", "labelEn": "Recruitment", "description": "Ganar nuevos fieles para la causa" },
+          { "value": "ritual-arcano", "label": "Ritual arcano", "labelEn": "Arcane Ritual", "description": "Realizar rituales y ceremonias ocultas" },
+          { "value": "adquisicion-reliquias", "label": "Adquisición de reliquias", "labelEn": "Relic Acquisition", "description": "Obtener artefactos y objetos de poder" }
+        ],
+        "xpTrigger": "Realizar un acto de devoción o avanzar los intereses de vuestra deidad.",
+        "xpTriggerEn": "Perform an act of devotion or advance your deity's interests.",
+        "contacts": [
+          { "name": "Gagan", "description": "Un académico de lo oculto" },
+          { "name": "Adikin", "description": "Un fiel veterano" },
+          { "name": "Hutchins", "description": "Un anticuario" },
+          { "name": "Moriya", "description": "Una médium" },
+          { "name": "Casta", "description": "Una herborista" },
+          { "name": "Sevoy", "description": "Un noble simpatizante" }
+        ]
+      },
+      "buhoneros": {
+        "name": "Buhoneros",
+        "nameEn": "Hawkers",
+        "description": "Traficantes y vendedores",
+        "descriptionEn": "Dealers and sellers",
+        "specialAbilities": [
+          { "name": "Cadena de distribución", "nameEn": "Silver Tongues", "description": "Cada miembro de la PC puede esforzarse para convencer a un cliente de pagar más por la mercancía o aceptar un trato desfavorable." },
+          { "name": "Monopolio", "nameEn": "Accord", "description": "Cuando controlás el suministro de un producto en un barrio, ganáis +1 moneda por trabajo." },
+          { "name": "Adulterados", "nameEn": "The Good Stuff", "description": "Vuestra mercancía es de calidad excepcional. Los clientes pagan un 50% más y son más leales." },
+          { "name": "Clientela fiel", "nameEn": "Ghost Market", "description": "Parte de vuestra clientela incluye fantasmas y espíritus. Podéis comerciar con bienes espirituales." },
+          { "name": "Red de distribución", "nameEn": "High Society", "description": "Tenéis clientes entre la alta sociedad. Ganáis +1 efecto cuando negociáis con nobles o instituciones." },
+          { "name": "Mercado negro", "nameEn": "Hooked", "description": "Vuestra mercancía crea dependencia. Los clientes que han comprado vuelven siempre. Ganáis +1d para reclutar." },
+          { "name": "Contabilidad creativa", "nameEn": "Leverage", "description": "Siempre tenéis algo que usar como palanca. Ganáis +1d en negociaciones cuando tenéis información comprometedora." },
+          { "name": "Veteranos", "nameEn": "Veterans", "description": "Elige una habilidad especial de otra ficha de banda." }
+        ],
+        "territoryClaims": [
+          { "name": "Punto de venta", "nameEn": "Sales Territory", "description": "Zona donde vendéis vuestra mercancía" },
+          { "name": "Laboratorio", "nameEn": "Laboratory", "description": "Lugar para fabricar o procesar productos" },
+          { "name": "Almacén oculto", "nameEn": "Hidden Warehouse", "description": "Depósito secreto de mercancías" },
+          { "name": "Red de mensajeros", "nameEn": "Messenger Network", "description": "Sistema de comunicaciones y entregas" },
+          { "name": "Tapadera", "nameEn": "Cover Business", "description": "Negocio legítimo que oculta las operaciones" },
+          { "name": "Contacto mayorista", "nameEn": "Wholesale Contact", "description": "Proveedor de materia prima" }
+        ],
+        "crewUpgrades": [
+          { "name": "Equipo de buhonero I", "nameEn": "Hawker Rigging I", "description": "1 carga gratis de equipo de traficante" },
+          { "name": "Equipo de buhonero II", "nameEn": "Hawker Rigging II", "description": "1 carga gratis adicional de equipo de traficante" },
+          { "name": "Equipo de élite (Espías)", "nameEn": "Elite Rooks", "description": "Mejora de habilidad para Espías" },
+          { "name": "Equipo de élite (Matones)", "nameEn": "Elite Thugs", "description": "Mejora de habilidad para Matones" },
+          { "name": "Mercancía de calidad", "nameEn": "Quality Goods", "description": "La mercancía que vendéis es de calidad superior" },
+          { "name": "Red segura", "nameEn": "Secure Network", "description": "Red de comunicaciones difícil de interceptar" }
+        ],
+        "huntingGrounds": [
+          { "value": "venta-directa", "label": "Venta directa", "labelEn": "Direct Sales", "description": "Venta puerta a puerta o en la calle" },
+          { "value": "punto-fijo", "label": "Punto fijo", "labelEn": "Fixed Location", "description": "Punto de venta fijo en un territorio" },
+          { "value": "distribuccion-mayor", "label": "Distribución al por mayor", "labelEn": "Wholesale Distribution", "description": "Venta a otros distribuidores" }
+        ],
+        "xpTrigger": "Adquirir o vender mercancía o expandir la red de distribución.",
+        "xpTriggerEn": "Acquire or sell goods, or expand your distribution network.",
+        "contacts": [
+          { "name": "Rolan", "description": "Un químico talentoso" },
+          { "name": "Laroze", "description": "Una contrabandista" },
+          { "name": "Venari", "description": "Un inspector sobornable" },
+          { "name": "Tesslyn", "description": "Una noble con vicios" },
+          { "name": "Jeren", "description": "Un rival amigable" },
+          { "name": "Marlo", "description": "Un transportista" }
+        ]
+      },
+      "sombras": {
+        "name": "Sombras",
+        "nameEn": "Shadows",
+        "description": "Ladrones y espías",
+        "descriptionEn": "Thieves and spies",
+        "specialAbilities": [
+          { "name": "Todo según el plan", "nameEn": "Everyone Steals", "description": "Cada miembro de la PC puede esforzarse para conseguir una ventaja adicional durante un robo: información extra, una ruta de escape, etc." },
+          { "name": "Invisibles", "nameEn": "Ghost Echoes", "description": "Podéis ver y moverse parcialmente a través del mundo fantasmal. La banda obtiene +1d cuando usa el sigilo." },
+          { "name": "Infiltración perfecta", "nameEn": "Pack Rats", "description": "Vuestra guarida tiene compartimentos ocultos. Ganáis +2 capacidad de almacenaje y +1d para ocultar objetos." },
+          { "name": "Dedos largos", "nameEn": "Patron", "description": "Cuando completáis un robo sin ser detectados, ganáis +2 rep." },
+          { "name": "Red de peristas", "nameEn": "Second Story", "description": "Tenéis una red fiable para vender bienes robados. Ganáis +1 moneda cuando vendéis botín." },
+          { "name": "Sombras en la noche", "nameEn": "Slippery", "description": "+1d a las tiradas de compromiso cuando el plan es de sigilo o engaño." },
+          { "name": "Sincronización", "nameEn": "Synchronized", "description": "Cuando trabajáis en equipo para entrar/salir de un lugar, cada miembro obtiene +1 efecto." },
+          { "name": "Veteranos", "nameEn": "Veterans", "description": "Elige una habilidad especial de otra ficha de banda." }
+        ],
+        "territoryClaims": [
+          { "name": "Callejones seguros", "nameEn": "Safe Alleys", "description": "Rutas de escape conocidas" },
+          { "name": "Perista de confianza", "nameEn": "Trusted Fence", "description": "Un contacto fiable para vender objetos robados" },
+          { "name": "Informantes", "nameEn": "Informants", "description": "Red de informantes en zonas clave" },
+          { "name": "Acceso a tejados", "nameEn": "Rooftop Access", "description": "Acceso a los tejados de la zona" },
+          { "name": "Escondite de emergencia", "nameEn": "Emergency Safehouse", "description": "Un lugar seguro de último recurso" },
+          { "name": "Pasadizos secretos", "nameEn": "Secret Passages", "description": "Rutas secretas a través de edificios y túneles" }
+        ],
+        "crewUpgrades": [
+          { "name": "Equipo de ladrón I", "nameEn": "Thief Rigging I", "description": "1 carga gratis de equipo de ladrón" },
+          { "name": "Equipo de ladrón II", "nameEn": "Thief Rigging II", "description": "1 carga gratis adicional de equipo de ladrón" },
+          { "name": "Equipo de élite (Espías)", "nameEn": "Elite Rooks", "description": "Mejora de habilidad para Espías" },
+          { "name": "Equipo de élite (Acechadores)", "nameEn": "Elite Skulks", "description": "Mejora de habilidad para Acechadores" },
+          { "name": "Compartimentos ocultos", "nameEn": "Hidden Compartments", "description": "Compartimentos secretos en la guarida y el equipo" },
+          { "name": "Herramientas de precisión", "nameEn": "Precision Tools", "description": "Herramientas de calidad superior para el trabajo" }
+        ],
+        "huntingGrounds": [
+          { "value": "robo", "label": "Robo", "labelEn": "Burglary", "description": "Entrar, robar y salir sin ser detectados" },
+          { "value": "carterismo", "label": "Carterismo", "labelEn": "Pickpocketing", "description": "Hurto directo de personas" },
+          { "value": "sabotaje", "label": "Sabotaje", "labelEn": "Sabotage", "description": "Infiltración y sabotaje de objetivos" }
+        ],
+        "xpTrigger": "Completar un robo o infiltración con éxito.",
+        "xpTriggerEn": "Execute a successful theft or infiltration.",
+        "contacts": [
+          { "name": "Dowler", "description": "Un perista experimentado" },
+          { "name": "Laroze", "description": "Una informante de la nobleza" },
+          { "name": "Amancio", "description": "Un cerrajero experto" },
+          { "name": "Fitz", "description": "Un recolector del colector" },
+          { "name": "Adelaide", "description": "Una timadora" },
+          { "name": "Telda", "description": "Una ladrona veterana" }
+        ]
+      },
+      "contrabandistas": {
+        "name": "Contrabandistas",
+        "nameEn": "Smugglers",
+        "description": "Transportistas ilegales",
+        "descriptionEn": "Illegal transporters",
+        "specialAbilities": [
+          { "name": "Rutas secretas", "nameEn": "Like Part of the Family", "description": "Cada miembro de la PC puede esforzarte para convencer a alguien de que le deje pasar con la mercancía sin inspección." },
+          { "name": "Todo se mueve", "nameEn": "All Hands", "description": "Durante la fase de descanso, podéis realizar una acción de contrabando adicional." },
+          { "name": "Cargamento fantasma", "nameEn": "Ghost Passage", "description": "Podéis transportar mercancía a través del mundo fantasmal. La carga no puede ser detectada por medios normales." },
+          { "name": "Velocidad", "nameEn": "Just Passing Through", "description": "Cuando transportáis mercancía, la ley necesita una prueba muy sólida para deteneros. +1d contra inspecciones." },
+          { "name": "Red de rutas", "nameEn": "Reavers", "description": "Cuando atacáis un cargamento rival o defendéis el vuestro, ganáis +1 efecto." },
+          { "name": "A toda vela", "nameEn": "Renegades", "description": "Cada PC gana +1d a las tiradas de resistencia de Perspicacia en persecuciones." },
+          { "name": "Conexiones portuarias", "nameEn": "Steady", "description": "Tenéis aliados en los muelles y puertos. Ganáis +1d cuando operáis cerca del agua." },
+          { "name": "Veteranos", "nameEn": "Veterans", "description": "Elige una habilidad especial de otra ficha de banda." }
+        ],
+        "territoryClaims": [
+          { "name": "Ruta establecida", "nameEn": "Established Route", "description": "Una ruta de contrabando probada y segura" },
+          { "name": "Punto de intercambio", "nameEn": "Exchange Point", "description": "Lugar para intercambiar mercancías" },
+          { "name": "Almacén portuario", "nameEn": "Port Warehouse", "description": "Almacén cerca de los muelles" },
+          { "name": "Puesto de vigilancia", "nameEn": "Lookout Post", "description": "Punto de observación para vigilar las autoridades" },
+          { "name": "Contacto aduanero", "nameEn": "Customs Contact", "description": "Un oficial de aduanas sobornado" },
+          { "name": "Muelle privado", "nameEn": "Private Dock", "description": "Un muelle propio para cargar y descargar" }
+        ],
+        "crewUpgrades": [
+          { "name": "Equipo de contrabandista I", "nameEn": "Smuggler Rigging I", "description": "1 carga gratis de equipo de contrabandista" },
+          { "name": "Equipo de contrabandista II", "nameEn": "Smuggler Rigging II", "description": "1 carga gratis adicional de equipo de contrabandista" },
+          { "name": "Equipo de élite (Esbirros)", "nameEn": "Elite Rovers", "description": "Mejora de habilidad para Esbirros" },
+          { "name": "Equipo de élite (Matones)", "nameEn": "Elite Thugs", "description": "Mejora de habilidad para Matones" },
+          { "name": "Vehículo mejorado", "nameEn": "Vehicle Upgrade", "description": "Mejoras para el vehículo de transporte" },
+          { "name": "Compartimentos secretos", "nameEn": "Secret Compartments", "description": "Compartimentos ocultos para mercancías" }
+        ],
+        "huntingGrounds": [
+          { "value": "transporte-carga", "label": "Transporte de carga", "labelEn": "Cargo Transport", "description": "Mover mercancías de un punto a otro" },
+          { "value": "personas", "label": "Transporte de personas", "labelEn": "People Smuggling", "description": "Mover personas de forma clandestina" },
+          { "value": "correo-secreto", "label": "Correo secreto", "labelEn": "Secret Courier", "description": "Entregar mensajes y paquetes confidenciales" }
+        ],
+        "xpTrigger": "Transportar mercancía ilegal o completar una entrega peligrosa.",
+        "xpTriggerEn": "Transport illegal goods or complete a dangerous delivery.",
+        "contacts": [
+          { "name": "Elynn", "description": "Una capitana de navío" },
+          { "name": "Nessim", "description": "Un funcionario de aduanas" },
+          { "name": "Voral", "description": "Un mecánico experto" },
+          { "name": "Griggs", "description": "Un estibador de confianza" },
+          { "name": "Kieran", "description": "Un cartógrafo" },
+          { "name": "Jol", "description": "Un piloto naval" }
+        ]
+      }
+    },
+    "lairUpgrades": [
+      { "name": "Aposentos", "nameEn": "Quarters", "description": "Alojamiento para la banda" },
+      { "name": "Armas", "nameEn": "Weapons", "description": "Armamento para la banda" },
+      { "name": "Cámara acorazada", "nameEn": "Vault", "description": "Un lugar seguro para guardar monedas" },
+      { "name": "Cochera", "nameEn": "Carriage", "description": "Un vehículo terrestre" },
+      { "name": "Embarcadero", "nameEn": "Boat", "description": "Acceso a una embarcación" },
+      { "name": "Oculta", "nameEn": "Hidden", "description": "La guarida es difícil de encontrar" },
+      { "name": "Segura", "nameEn": "Secure", "description": "La guarida tiene buenas defensas" },
+      { "name": "Taller", "nameEn": "Workshop", "description": "Un taller para fabricar y reparar" },
+      { "name": "Documentos", "nameEn": "Documents", "description": "Documentos falsos y herramientas de falsificación" },
+      { "name": "Equipo", "nameEn": "Gear", "description": "Equipo general para operaciones" },
+      { "name": "Herramientas", "nameEn": "Tools", "description": "Herramientas especializadas" },
+      { "name": "Suministros", "nameEn": "Supplies", "description": "Suministros y provisiones" },
+      { "name": "Utensilios", "nameEn": "Implements", "description": "Utensilios variados para trabajos específicos" }
+    ],
+    "factions": [
+      {
+        "category": "Bajos Fondos",
+        "categoryEn": "The Underworld",
+        "factions": [
+          { "name": "Los Lampblacks", "tier": 2 },
+          { "name": "Los Red Sashes", "tier": 2 },
+          { "name": "Los Crows", "tier": 2 },
+          { "name": "Los Lampblacks", "tier": 2 },
+          { "name": "La Unseen", "tier": 4 },
+          { "name": "Los Wraiths", "tier": 1 },
+          { "name": "Los Billhooks", "tier": 2 },
+          { "name": "Los Hive", "tier": 4 },
+          { "name": "Los Silver Nails", "tier": 1 },
+          { "name": "Los Gray Cloaks", "tier": 2 }
+        ]
+      },
+      {
+        "category": "Instituciones",
+        "categoryEn": "Institutions",
+        "factions": [
+          { "name": "La Ciudad de Doskvol", "tier": 5 },
+          { "name": "Los Inspectores", "tier": 3 },
+          { "name": "Los Capas Azules", "tier": 3 },
+          { "name": "La Iglesia del Ecstasy", "tier": 4 },
+          { "name": "El Círculo de la Llama", "tier": 3 },
+          { "name": "La Torre del Lord Gobernador", "tier": 5 },
+          { "name": "El Ministerio de la Preservación", "tier": 5 },
+          { "name": "La Academia de Sparkwright", "tier": 4 }
+        ]
+      },
+      {
+        "category": "Obreros y Comerciantes",
+        "categoryEn": "Labor & Trade",
+        "factions": [
+          { "name": "Los Gondoleros", "tier": 3 },
+          { "name": "Los Trabajadores del Muelle", "tier": 3 },
+          { "name": "Los Leviathan Hunters", "tier": 5 },
+          { "name": "La Sociedad de Maestros Artesanos", "tier": 4 },
+          { "name": "Los Comerciantes del Mercado", "tier": 2 }
+        ]
+      },
+      {
+        "category": "La Periferia",
+        "categoryEn": "The Fringe",
+        "factions": [
+          { "name": "Los Reconciled", "tier": 3 },
+          { "name": "Los Path of Echoes", "tier": 3 },
+          { "name": "Los Forgotten Gods", "tier": 4 },
+          { "name": "Los Spirit Wardens", "tier": 4 },
+          { "name": "Los Dimmer Sisters", "tier": 2 }
+        ]
+      },
+      {
+        "category": "Ciudadanía",
+        "categoryEn": "Citizens",
+        "factions": [
+          { "name": "Los Ciudadanos de Coalridge", "tier": 1 },
+          { "name": "Los Ciudadanos de Charhollow", "tier": 1 },
+          { "name": "Los Ciudadanos de Crow's Foot", "tier": 1 },
+          { "name": "Los Ciudadanos de The Docks", "tier": 1 },
+          { "name": "Los Ciudadanos de Barrowcleft", "tier": 1 },
+          { "name": "Los Ciudadanos de Brightstone", "tier": 2 },
+          { "name": "Los Ciudadanos de Dunslough", "tier": 1 },
+          { "name": "Los Ciudadanos de Nightmarket", "tier": 2 },
+          { "name": "Los Ciudadanos de Silkshore", "tier": 2 },
+          { "name": "Los Ciudadanos de Six Towers", "tier": 2 },
+          { "name": "Los Ciudadanos de Whitecrown", "tier": 3 }
+        ]
+      }
+    ],
+    "deityCharacteristics": [
+      { "value": "ambicioso", "label": "Ambicioso", "labelEn": "Ambitious" },
+      { "value": "cruel", "label": "Cruel", "labelEn": "Cruel" },
+      { "value": "generoso", "label": "Generoso", "labelEn": "Generous" },
+      { "value": "misterioso", "label": "Misterioso", "labelEn": "Mysterious" },
+      { "value": "salvaje", "label": "Salvaje", "labelEn": "Wild" },
+      { "value": "sutil", "label": "Sutil", "labelEn": "Subtle" },
+      { "value": "vengativo", "label": "Vengativo", "labelEn": "Vengeful" },
+      { "value": "sabio", "label": "Sabio", "labelEn": "Wise" }
+    ],
+    "vehicleTraits": {
+      "advantages": [
+        { "value": "rapido", "label": "Rápido", "labelEn": "Fast" },
+        { "value": "discreto", "label": "Discreto", "labelEn": "Discreet" },
+        { "value": "robusto", "label": "Robusto", "labelEn": "Sturdy" },
+        { "value": "gran-capacidad", "label": "Gran capacidad", "labelEn": "Large Capacity" }
+      ],
+      "defects": [
+        { "value": "lento", "label": "Lento", "labelEn": "Slow" },
+        { "value": "llamativo", "label": "Llamativo", "labelEn": "Conspicuous" },
+        { "value": "fragil", "label": "Frágil", "labelEn": "Fragile" },
+        { "value": "pequeno", "label": "Pequeño", "labelEn": "Small" }
+      ]
+    },
+    "defaultData": {
+      "crewName": "",
+      "crewType": "",
+      "reputation": "",
+      "tier": 0,
+      "hold": "weak",
+      "rep": 0,
+      "heat": 0,
+      "wantedLevel": 0,
+      "coin": 0,
+      "vaults": 0,
+      "selectedAbilities": [],
+      "crewXp": 0,
+      "selectedCrewUpgrades": [],
+      "selectedLairUpgrades": [],
+      "claimedTerritories": [],
+      "huntingGrounds": "",
+      "cohorts": [],
+      "factionStanding": {},
+      "deityName": "",
+      "selectedDeityCharacteristics": [],
+      "vehicleAdvantages": [],
+      "vehicleDefects": [],
+      "notes": ""
+    }
+  }
+}
