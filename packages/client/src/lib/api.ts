@@ -24,6 +24,24 @@ async function request<T>(
   return response.json();
 }
 
+async function uploadFile<T>(endpoint: string, blob: Blob, filename: string): Promise<T> {
+  const url = `${API_BASE}${endpoint}`;
+  const formData = new FormData();
+  formData.append('file', blob, filename);
+
+  const response = await fetch(url, {
+    method: 'POST',
+    body: formData
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({ error: 'Unknown error' }));
+    throw new Error(error.error || `HTTP ${response.status}`);
+  }
+
+  return response.json();
+}
+
 export interface User {
   id: string;
   username: string;
@@ -320,5 +338,25 @@ export const api = {
     return request<{ success: boolean }>(`/sheets/${encodeURIComponent(sheetId)}/shares/${encodeURIComponent(userId)}`, {
       method: 'DELETE'
     });
+  },
+
+  // Image uploads
+  async uploadSheetImage(sheetId: string, blob: Blob, userId: string): Promise<{ image: string }> {
+    return uploadFile<{ image: string }>(
+      `/sheets/${encodeURIComponent(sheetId)}/image?userId=${encodeURIComponent(userId)}`,
+      blob,
+      'image.jpg'
+    );
+  },
+
+  async deleteSheetImage(sheetId: string, userId: string): Promise<{ success: boolean }> {
+    return request<{ success: boolean }>(
+      `/sheets/${encodeURIComponent(sheetId)}/image?userId=${encodeURIComponent(userId)}`,
+      { method: 'DELETE' }
+    );
+  },
+
+  getImageUrl(filename: string): string {
+    return `${API_BASE}/uploads/${encodeURIComponent(filename)}`;
   }
 };

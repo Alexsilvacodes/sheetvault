@@ -1,8 +1,9 @@
 <script lang="ts">
   import type { Sheet, CharacterTemplateSchema, PlaybookDef, CrewOption } from '$lib/api';
   import { api } from '$lib/api';
-  import { RatingInput, TrackInput, ClockInput } from '$lib/components';
+  import { RatingInput, TrackInput, ClockInput, ImageUpload } from '$lib/components';
   import { t, locale } from '$lib/i18n';
+  import { user } from '$lib/stores/user';
   import { onMount } from 'svelte';
 
   let { sheet, schema, updateData, saving, handleNameChange, readonly = false, onShare = undefined }: {
@@ -188,6 +189,10 @@
     return Math.pow(2, currentRating);
   }
 
+  function handleImageChange(filename: string | null) {
+    updateData('image', filename ?? '');
+  }
+
   let collapsed: Record<string, boolean> = $state({});
 
   function toggleSection(key: string) {
@@ -239,6 +244,17 @@
     </div>
     {#if !collapsed['charInfo']}
     <div class="mt-4">
+    <div class="flex gap-6">
+      <div class="flex-shrink-0">
+        <ImageUpload
+          sheetId={sheet.id}
+          userId={$user?.id ?? ''}
+          currentImage={sheet.data.image as string || undefined}
+          {readonly}
+          onImageChange={handleImageChange}
+        />
+      </div>
+      <div class="flex-1">
     <div class="grid gap-4 sm:grid-cols-2">
       <div>
         <label for="name" class="label">{$t('name')}</label>
@@ -307,6 +323,8 @@
     <div class="mt-4">
       <label for="look" class="label">{$t('look')}</label>
       <textarea id="look" value={sheet.data.look || ''} oninput={(e) => updateData('look', e.currentTarget.value)} class="input" rows="2"></textarea>
+    </div>
+      </div>
     </div>
     </div>
     {/if}

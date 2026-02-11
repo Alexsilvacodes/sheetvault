@@ -210,6 +210,16 @@ export const translations = {
     close: 'Close',
     owner: 'Owner',
 
+    // Image upload
+    uploadImage: 'Upload Image',
+    changeImage: 'Change Image',
+    removeImage: 'Remove',
+    uploading: 'Uploading...',
+    invalidImageType: 'Please upload a JPEG, PNG, or WebP image.',
+    imageTooLarge: 'Image is too large.',
+    cropImage: 'Crop Image',
+    cropConfirm: 'Confirm',
+
     // Language
     language: 'Language',
     english: 'English',
@@ -424,6 +434,16 @@ export const translations = {
     crewEditBanner: 'Estás editando esta hoja como miembro de la banda.',
     close: 'Cerrar',
     owner: 'Propietario',
+
+    // Image upload
+    uploadImage: 'Subir Imagen',
+    changeImage: 'Cambiar Imagen',
+    removeImage: 'Eliminar',
+    uploading: 'Subiendo...',
+    invalidImageType: 'Sube una imagen JPEG, PNG o WebP.',
+    imageTooLarge: 'La imagen es demasiado grande.',
+    cropImage: 'Recortar Imagen',
+    cropConfirm: 'Confirmar',
 
     // Language
     language: 'Idioma',

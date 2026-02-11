@@ -1,6 +1,9 @@
 import { FastifyInstance } from 'fastify';
 import { getDb } from '../db/index.js';
 import { v4 as uuidv4 } from 'uuid';
+import { existsSync, unlinkSync } from 'fs';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
 
 interface SheetParams {
   id: string;
@@ -51,7 +54,7 @@ function parseSheetRow(row: SheetRow) {
 
 type Permission = 'owner' | 'crew_member' | 'shared' | 'none';
 
-function getPermission(db: ReturnType<typeof getDb>, sheetId: string, userId: string): Permission {
+export function getPermission(db: ReturnType<typeof getDb>, sheetId: string, userId: string): Permission {
   // Check owner
   const sheet = db.prepare('SELECT user_id FROM sheets WHERE id = ?').get(sheetId) as { user_id: string } | undefined;
   if (!sheet) return 'none';
@@ -286,9 +289,25 @@ export async function sheetRoutes(fastify: FastifyInstance): Promise<void> {
     const { id } = request.params;
     const db = getDb();
 
-    const sheet = db.prepare('SELECT * FROM sheets WHERE id = ?').get(id);
+    const sheet = db.prepare('SELECT * FROM sheets WHERE id = ?').get(id) as SheetRow | undefined;
     if (!sheet) {
       return reply.status(404).send({ error: 'Sheet not found' });
+    }
+
+    // Clean up uploaded image file if exists
+    try {
+      const sheetData = JSON.parse(sheet.data);
+      if (sheetData.image) {
+        const uploadsDir = process.env.DATABASE_PATH
+          ? join(dirname(process.env.DATABASE_PATH), 'uploads')
+          : './data/uploads';
+        const imagePath = join(uploadsDir, sheetData.image);
+        if (existsSync(imagePath)) {
+          unlinkSync(imagePath);
+        }
+      }
+    } catch {
+      // Ignore JSON parse errors or file deletion errors
     }
 
     db.prepare('DELETE FROM sheets WHERE id = ?').run(id);

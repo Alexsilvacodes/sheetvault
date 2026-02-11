@@ -1,8 +1,9 @@
 <script lang="ts">
   import type { Sheet, CrewTemplateSchema, CrewTypeDef, CohortData, CrewMember } from '$lib/api';
   import { api } from '$lib/api';
-  import { TrackInput, ClockInput } from '$lib/components';
+  import { TrackInput, ClockInput, ImageUpload } from '$lib/components';
   import { t, locale } from '$lib/i18n';
+  import { user } from '$lib/stores/user';
   import { onMount } from 'svelte';
 
   let { sheet, schema, updateData, saving, handleNameChange, readonly = false, onShare = undefined }: {
@@ -147,6 +148,10 @@
     updateData('customClocks', customClocks.filter((_, i) => i !== index));
   }
 
+  function handleImageChange(filename: string | null) {
+    updateData('image', filename ?? '');
+  }
+
   let collapsed: Record<string, boolean> = $state({});
 
   function toggleSection(key: string) {
@@ -198,6 +203,17 @@
     </div>
     {#if !collapsed['crewInfo']}
     <div class="mt-4">
+    <div class="flex gap-6">
+      <div class="flex-shrink-0">
+        <ImageUpload
+          sheetId={sheet.id}
+          userId={$user?.id ?? ''}
+          currentImage={sheet.data.image as string || undefined}
+          {readonly}
+          onImageChange={handleImageChange}
+        />
+      </div>
+      <div class="flex-1">
     <div class="grid gap-4 sm:grid-cols-2">
       <div>
         <label for="crewName" class="label">{$t('name')}</label>
@@ -234,6 +250,8 @@
             <span class="text-themed-secondary">{$t('holdStrong')}</span>
           </label>
         </div>
+      </div>
+    </div>
       </div>
     </div>
     </div>
