@@ -1,12 +1,14 @@
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
+import fastifyMultipart from '@fastify/multipart';
 import fastifyStatic from '@fastify/static';
-import { join, dirname } from 'path';
+import { join, dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
 import { existsSync, mkdirSync } from 'fs';
 import { userRoutes } from './routes/users.js';
 import { templateRoutes } from './routes/templates.js';
 import { sheetRoutes } from './routes/sheets.js';
+import { uploadRoutes } from './routes/uploads.js';
 import { closeDb } from './db/index.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -19,6 +21,11 @@ if (!existsSync(dataDir)) {
   mkdirSync(dataDir, { recursive: true });
 }
 
+const uploadsDir = join(dataDir, 'uploads');
+if (!existsSync(uploadsDir)) {
+  mkdirSync(uploadsDir, { recursive: true });
+}
+
 const fastify = Fastify({
   logger: true
 });
@@ -29,10 +36,22 @@ await fastify.register(cors, {
     : ['http://localhost:5173', 'http://127.0.0.1:5173']
 });
 
+await fastify.register(fastifyMultipart, {
+  limits: { fileSize: 11 * 1024 * 1024 }
+});
+
+// Serve uploaded files
+await fastify.register(fastifyStatic, {
+  root: resolve(uploadsDir),
+  prefix: '/api/uploads/',
+  decorateReply: false
+});
+
 // API routes
 fastify.register(userRoutes, { prefix: '/api' });
 fastify.register(templateRoutes, { prefix: '/api' });
 fastify.register(sheetRoutes, { prefix: '/api' });
+fastify.register(uploadRoutes, { prefix: '/api' });
 
 // Serve static files in production
 if (process.env.NODE_ENV === 'production') {

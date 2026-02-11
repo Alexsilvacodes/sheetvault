@@ -6,4 +6,5 @@ export { default as TrackInput } from './TrackInput.svelte';
 export { default as ClockInput } from './ClockInput.svelte';
 export { default as LanguageSwitcher } from './LanguageSwitcher.svelte';
 export { default as ShareDialog } from './ShareDialog.svelte';
+export { default as ImageUpload } from './ImageUpload.svelte';
 export { CharacterSheetEditor, CrewSheetEditor } from './editors';
