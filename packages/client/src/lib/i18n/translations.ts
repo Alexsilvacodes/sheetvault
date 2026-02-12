@@ -220,6 +220,17 @@ export const translations = {
     cropImage: 'Crop Image',
     cropConfirm: 'Confirm',
 
+    // Stash & Lifestyle
+    lifestyle: 'Lifestyle',
+
+    // End of session XP
+    endOfSessionXp: 'End of Session XP',
+    endOfSessionNote: 'Mark 1 XP (playbook or attribute) for each fulfilled, or 2 XP if done multiple times.',
+
+    // Alchemicals
+    alchemicals: 'Alchemicals',
+    alchemicalsNote: 'When you use a bandolier slot, choose an alchemical:',
+
     // Language
     language: 'Language',
     english: 'English',
@@ -444,6 +455,17 @@ export const translations = {
     imageTooLarge: 'La imagen es demasiado grande.',
     cropImage: 'Recortar Imagen',
     cropConfirm: 'Confirmar',
+
+    // Stash & Lifestyle
+    lifestyle: 'Nivel de vida',
+
+    // End of session XP
+    endOfSessionXp: 'PX de fin de sesión',
+    endOfSessionNote: 'Marca 1 PX (de tu libreto o de atributo) por cada punto cumplido, o 2 PX si lo has hecho varias veces.',
+
+    // Alchemicals
+    alchemicals: 'Alquímicos',
+    alchemicalsNote: 'Cuando uses un espacio de bandolera, elige un alquímico:',
 
     // Language
     language: 'Idioma',
