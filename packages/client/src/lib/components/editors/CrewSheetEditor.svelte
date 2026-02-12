@@ -161,7 +161,7 @@
 
 <div class="flex items-center justify-between mb-6">
   <div class="flex items-center gap-4">
-    <a href="/sheets" class="text-themed-muted hover:text-themed-primary">
+    <a href="/sheets" class="text-themed-muted hover:text-themed-primary" aria-label="Back">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
       </svg>
@@ -197,7 +197,7 @@
   <section class="card">
     <div class="flex items-center justify-between">
       <h2 class="text-lg font-semibold text-themed-primary">{$t('crewInfo')}</h2>
-      <button type="button" onclick={() => toggleSection('crewInfo')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['crewInfo'] ? '-rotate-90' : ''}">
+      <button type="button" onclick={() => toggleSection('crewInfo')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['crewInfo'] ? '-rotate-90' : ''}">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
       </button>
     </div>
@@ -262,7 +262,7 @@
   <section class="card">
     <div class="flex items-center justify-between">
       <h2 class="text-lg font-semibold text-themed-primary">{$t('crewMembers')}</h2>
-      <button type="button" onclick={() => toggleSection('crewMembers')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['crewMembers'] ? '-rotate-90' : ''}">
+      <button type="button" onclick={() => toggleSection('crewMembers')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['crewMembers'] ? '-rotate-90' : ''}">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
       </button>
     </div>
@@ -290,7 +290,7 @@
   <section class="card">
     <div class="flex items-center justify-between">
       <h2 class="text-lg font-semibold text-themed-primary">{$t('repAndHeat')}</h2>
-      <button type="button" onclick={() => toggleSection('repHeat')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['repHeat'] ? '-rotate-90' : ''}">
+      <button type="button" onclick={() => toggleSection('repHeat')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['repHeat'] ? '-rotate-90' : ''}">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
       </button>
     </div>
@@ -311,7 +311,7 @@
   <section class="card">
     <div class="flex items-center justify-between">
       <h2 class="text-lg font-semibold text-themed-primary">{$t('coinAndVaults')}</h2>
-      <button type="button" onclick={() => toggleSection('coinVaults')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['coinVaults'] ? '-rotate-90' : ''}">
+      <button type="button" onclick={() => toggleSection('coinVaults')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['coinVaults'] ? '-rotate-90' : ''}">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
       </button>
     </div>
@@ -330,7 +330,7 @@
     <section class="card">
       <div class="flex items-center justify-between">
         <h2 class="text-lg font-semibold text-themed-primary">{$t('specialAbilities')}</h2>
-        <button type="button" onclick={() => toggleSection('specialAbilities')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['specialAbilities'] ? '-rotate-90' : ''}">
+        <button type="button" onclick={() => toggleSection('specialAbilities')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['specialAbilities'] ? '-rotate-90' : ''}">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
         </button>
       </div>
@@ -364,7 +364,7 @@
   <section class="card">
     <div class="flex items-center justify-between">
       <h2 class="text-lg font-semibold text-themed-primary">{$t('crewXp')}</h2>
-      <button type="button" onclick={() => toggleSection('crewXp')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['crewXp'] ? '-rotate-90' : ''}">
+      <button type="button" onclick={() => toggleSection('crewXp')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['crewXp'] ? '-rotate-90' : ''}">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
       </button>
     </div>
@@ -386,7 +386,7 @@
     <section class="card">
       <div class="flex items-center justify-between">
         <h2 class="text-lg font-semibold text-themed-primary">{$t('crewUpgrades')}</h2>
-        <button type="button" onclick={() => toggleSection('crewUpgrades')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['crewUpgrades'] ? '-rotate-90' : ''}">
+        <button type="button" onclick={() => toggleSection('crewUpgrades')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['crewUpgrades'] ? '-rotate-90' : ''}">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
         </button>
       </div>
@@ -414,7 +414,7 @@
   <section class="card">
     <div class="flex items-center justify-between">
       <h2 class="text-lg font-semibold text-themed-primary">{$t('lairUpgrades')}</h2>
-      <button type="button" onclick={() => toggleSection('lairUpgrades')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['lairUpgrades'] ? '-rotate-90' : ''}">
+      <button type="button" onclick={() => toggleSection('lairUpgrades')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['lairUpgrades'] ? '-rotate-90' : ''}">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
       </button>
     </div>
@@ -442,7 +442,7 @@
     <section class="card">
       <div class="flex items-center justify-between">
         <h2 class="text-lg font-semibold text-themed-primary">{$t('territoryClaims')}</h2>
-        <button type="button" onclick={() => toggleSection('territoryClaims')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['territoryClaims'] ? '-rotate-90' : ''}">
+        <button type="button" onclick={() => toggleSection('territoryClaims')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['territoryClaims'] ? '-rotate-90' : ''}">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
         </button>
       </div>
@@ -471,7 +471,7 @@
     <section class="card">
       <div class="flex items-center justify-between">
         <h2 class="text-lg font-semibold text-themed-primary">{$t('huntingGrounds')}</h2>
-        <button type="button" onclick={() => toggleSection('huntingGrounds')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['huntingGrounds'] ? '-rotate-90' : ''}">
+        <button type="button" onclick={() => toggleSection('huntingGrounds')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['huntingGrounds'] ? '-rotate-90' : ''}">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
         </button>
       </div>
@@ -506,7 +506,7 @@
   <section class="card">
     <div class="flex items-center justify-between">
       <h2 class="text-lg font-semibold text-themed-primary">{$t('cohorts')}</h2>
-      <button type="button" onclick={() => toggleSection('cohorts')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['cohorts'] ? '-rotate-90' : ''}">
+      <button type="button" onclick={() => toggleSection('cohorts')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['cohorts'] ? '-rotate-90' : ''}">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
       </button>
     </div>
@@ -582,7 +582,7 @@
   <section class="card">
     <div class="flex items-center justify-between">
       <h2 class="text-lg font-semibold text-themed-primary">{$t('factionStanding')}</h2>
-      <button type="button" onclick={() => toggleSection('factionStanding')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['factionStanding'] ? '-rotate-90' : ''}">
+      <button type="button" onclick={() => toggleSection('factionStanding')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['factionStanding'] ? '-rotate-90' : ''}">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
       </button>
     </div>
@@ -629,7 +629,7 @@
     <section class="card">
       <div class="flex items-center justify-between">
         <h2 class="text-lg font-semibold text-themed-primary">{$t('deity')}</h2>
-        <button type="button" onclick={() => toggleSection('deity')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['deity'] ? '-rotate-90' : ''}">
+        <button type="button" onclick={() => toggleSection('deity')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['deity'] ? '-rotate-90' : ''}">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
         </button>
       </div>
@@ -665,7 +665,7 @@
     <section class="card">
       <div class="flex items-center justify-between">
         <h2 class="text-lg font-semibold text-themed-primary">{$t('vehicle')}</h2>
-        <button type="button" onclick={() => toggleSection('vehicle')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['vehicle'] ? '-rotate-90' : ''}">
+        <button type="button" onclick={() => toggleSection('vehicle')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['vehicle'] ? '-rotate-90' : ''}">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
         </button>
       </div>
@@ -715,7 +715,7 @@
     <section class="card">
       <div class="flex items-center justify-between">
         <h2 class="text-lg font-semibold text-themed-primary">{$t('contacts')}</h2>
-        <button type="button" onclick={() => toggleSection('contacts')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['contacts'] ? '-rotate-90' : ''}">
+        <button type="button" onclick={() => toggleSection('contacts')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['contacts'] ? '-rotate-90' : ''}">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
         </button>
       </div>
@@ -738,7 +738,7 @@
   <section class="card">
     <div class="flex items-center justify-between">
       <h2 class="text-lg font-semibold text-themed-primary">{$t('customClocks')}</h2>
-      <button type="button" onclick={() => toggleSection('customClocks')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['customClocks'] ? '-rotate-90' : ''}">
+      <button type="button" onclick={() => toggleSection('customClocks')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['customClocks'] ? '-rotate-90' : ''}">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
       </button>
     </div>
@@ -798,7 +798,7 @@
   <section class="card">
     <div class="flex items-center justify-between">
       <h2 class="text-lg font-semibold text-themed-primary">{$t('notes')}</h2>
-      <button type="button" onclick={() => toggleSection('notes')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['notes'] ? '-rotate-90' : ''}">
+      <button type="button" onclick={() => toggleSection('notes')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['notes'] ? '-rotate-90' : ''}">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
       </button>
     </div>

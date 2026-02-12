@@ -48,7 +48,24 @@
   let customFriends = $derived((sheet?.data?.customFriends ?? []) as CustomContact[]);
   let customRivals = $derived((sheet?.data?.customRivals ?? []) as CustomContact[]);
   let selectedAbilities = $derived((sheet?.data?.selectedAbilities ?? []) as string[]);
+  let veteranAbilities = $derived((sheet?.data?.veteranAbilities ?? []) as string[]);
   let nextAbilityCost = $derived(selectedAbilities.length + 1);
+
+  function toggleVeteranSlot(index: number) {
+    const current = [...veteranAbilities];
+    if (index < current.length) {
+      current.splice(index);
+    } else {
+      while (current.length <= index) current.push('');
+    }
+    updateData('veteranAbilities', current);
+  }
+
+  function updateVeteranText(index: number, text: string) {
+    const current = [...veteranAbilities];
+    current[index] = text;
+    updateData('veteranAbilities', current);
+  }
 
   function getPlaybook(key: string | undefined): PlaybookDef | null {
     if (!key || !schema) return null;
@@ -79,14 +96,14 @@
     return {};
   }
 
-  function getContactStatus(contactName: string): string {
-    return getFriendStatus()[contactName] || '';
+  function getContactStatus(contactKey: string): string {
+    return getFriendStatus()[contactKey] || '';
   }
 
-  function toggleContactStatus(contactName: string, status: string) {
+  function toggleContactStatus(contactKey: string, status: string) {
     const current = getFriendStatus();
     const updated = { ...current };
-    updated[contactName] = updated[contactName] === status ? '' : status;
+    updated[contactKey] = updated[contactKey] === status ? '' : status;
     updateData('friendStatus', updated);
   }
 
@@ -184,14 +201,29 @@
     }
   }
 
-  function actionUpgradeCost(currentRating: number): number {
+  function actionUpgradeCost(currentRating: number, attrKey: string): number {
     if (currentRating >= 4) return 0;
-    return Math.pow(2, currentRating);
+    if (currentRating === 0) {
+      const attr = schema.attributes[attrKey];
+      let actionsWithDots = 0;
+      for (const actionKey of Object.keys(attr.actions)) {
+        if ((Number(sheet.data[actionKey]) || 0) >= 1) actionsWithDots++;
+      }
+      return actionsWithDots + 1;
+    }
+    return currentRating + 1;
   }
 
   function handleImageChange(filename: string | null) {
     updateData('image', filename ?? '');
   }
+
+  const spiritPlaybooks = ['fantasma', 'cascaron', 'vampiro'];
+
+  let stressLabel = $derived(currentPlaybook?.stressLabel ? (isEs ? currentPlaybook.stressLabel : (currentPlaybook.stressLabelEn || currentPlaybook.stressLabel)) : $t('stress'));
+  let traumaLabel = $derived(currentPlaybook?.traumaLabel ? (isEs ? currentPlaybook.traumaLabel : (currentPlaybook.traumaLabelEn || currentPlaybook.traumaLabel)) : $t('trauma'));
+  let stressMax = $derived(currentPlaybook?.stressMax ?? 9);
+  let activeTraumaConditions = $derived(currentPlaybook?.traumaConditions ?? schema.traumaConditions);
 
   let collapsed: Record<string, boolean> = $state({});
 
@@ -202,7 +234,7 @@
 
 <div class="flex items-center justify-between mb-6">
   <div class="flex items-center gap-4">
-    <a href="/sheets" class="text-themed-muted hover:text-themed-primary">
+    <a href="/sheets" class="text-themed-muted hover:text-themed-primary" aria-label="Back">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
       </svg>
@@ -238,7 +270,7 @@
   <section class="card lg:col-span-2">
     <div class="flex items-center justify-between">
       <h2 class="text-lg font-semibold text-themed-primary">{$t('characterInfo')}</h2>
-      <button type="button" onclick={() => toggleSection('charInfo')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['charInfo'] ? '-rotate-90' : ''}">
+      <button type="button" onclick={() => toggleSection('charInfo')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['charInfo'] ? '-rotate-90' : ''}">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
       </button>
     </div>
@@ -268,9 +300,14 @@
         <label for="playbook" class="label">{$t('playbook')}</label>
         <select id="playbook" value={sheet.data.playbook || ''} onchange={(e) => updateData('playbook', e.currentTarget.value)} class="input">
           <option value="">{$t('selectPlaybook')}</option>
-          {#each Object.entries(schema.playbooks) as [key, pb]}
+          {#each Object.entries(schema.playbooks).filter(([k]) => !spiritPlaybooks.includes(k)) as [key, pb]}
             <option value={key}>{pb.name} ({pb.nameEn})</option>
           {/each}
+          <optgroup label={isEs ? 'Libretos espirituales' : 'Spirit playbooks'}>
+            {#each Object.entries(schema.playbooks).filter(([k]) => spiritPlaybooks.includes(k)) as [key, pb]}
+              <option value={key}>{pb.name} ({pb.nameEn})</option>
+            {/each}
+          </optgroup>
         </select>
       </div>
       <div>
@@ -336,18 +373,12 @@
     <section class="card">
       <div class="flex items-center justify-between">
         <h2 class="text-lg font-semibold text-themed-primary">{$t('actions')}</h2>
-        <button type="button" onclick={() => toggleSection('actions')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['actions'] ? '-rotate-90' : ''}">
+        <button type="button" onclick={() => toggleSection('actions')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['actions'] ? '-rotate-90' : ''}">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
         </button>
       </div>
       {#if !collapsed['actions']}
       <div class="mt-4">
-      {#if currentPlaybook}
-        <div class="mb-4 p-3 rounded bg-themed-tertiary/50 border border-themed">
-          <span class="text-xs font-medium text-themed-accent uppercase">{$t('xpTrigger')}</span>
-          <p class="text-sm text-themed-secondary mt-1">{isEs ? currentPlaybook.xpTrigger : currentPlaybook.xpTriggerEn}</p>
-        </div>
-      {/if}
       <div class="space-y-6">
         {#each Object.entries(schema.attributes) as [attrKey, attr]}
           {@const xpCfg = attrXpConfig[attrKey]}
@@ -396,7 +427,7 @@
                     />
                   </div>
                   {#if Number(sheet.data[actionKey] || 0) < action.max}
-                    <span class="text-xs text-themed-faint whitespace-nowrap">{actionUpgradeCost(Number(sheet.data[actionKey]) || 0)} EXP</span>
+                    <span class="text-xs text-themed-faint whitespace-nowrap">{actionUpgradeCost(Number(sheet.data[actionKey]) || 0, attrKey)} EXP</span>
                   {/if}
                 </div>
               {/each}
@@ -435,6 +466,25 @@
           </div>
         </div>
       </div>
+      <!-- End of Session XP -->
+      {#if currentPlaybook}
+        <div class="mt-6 pt-4 border-t border-themed">
+          <h3 class="text-sm font-medium text-themed-accent uppercase mb-2">{$t('endOfSessionXp')}</h3>
+          <p class="text-xs text-themed-muted mb-3">{$t('endOfSessionNote')}</p>
+          <ul class="space-y-1.5">
+            <li class="text-sm text-themed-secondary pl-4 relative before:content-[''] before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:rounded-full before:bg-themed-accent">
+              {isEs ? currentPlaybook.xpTrigger : currentPlaybook.xpTriggerEn}
+            </li>
+            {#if currentPlaybook.xpQuestions}
+              {#each (isEs ? currentPlaybook.xpQuestions : (currentPlaybook.xpQuestionsEn ?? currentPlaybook.xpQuestions)) as question}
+                <li class="text-sm text-themed-secondary pl-4 relative before:content-[''] before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:rounded-full before:bg-themed-accent">
+                  {question}
+                </li>
+              {/each}
+            {/if}
+          </ul>
+        </div>
+      {/if}
       </div>
       {/if}
     </section>
@@ -442,8 +492,8 @@
     <!-- Stress & Trauma -->
     <section class="card">
       <div class="flex items-center justify-between">
-        <h2 class="text-lg font-semibold text-themed-primary">{$t('stressAndTrauma')}</h2>
-        <button type="button" onclick={() => toggleSection('stressTrauma')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['stressTrauma'] ? '-rotate-90' : ''}">
+        <h2 class="text-lg font-semibold text-themed-primary">{stressLabel} & {traumaLabel}</h2>
+        <button type="button" onclick={() => toggleSection('stressTrauma')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['stressTrauma'] ? '-rotate-90' : ''}">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
         </button>
       </div>
@@ -451,13 +501,13 @@
       <div class="mt-4">
       <div class="grid gap-6 sm:grid-cols-2">
         <TrackInput
-          label={$t('stress')}
+          label={stressLabel}
           value={Number(sheet.data.stress) || 0}
-          max={9}
+          max={stressMax}
           onChange={(v) => updateData('stress', v)}
         />
         <TrackInput
-          label={$t('trauma')}
+          label={traumaLabel}
           value={Number(sheet.data.trauma) || 0}
           max={4}
           onChange={(v) => updateData('trauma', v)}
@@ -466,7 +516,7 @@
       <div class="mt-4">
         <span class="label">{$t('traumaConditions')}</span>
         <div class="flex flex-wrap gap-2 mt-1">
-          {#each schema.traumaConditions as condition}
+          {#each activeTraumaConditions as condition}
             <label class="flex items-center gap-1 text-sm">
               <input
                 type="checkbox"
@@ -487,7 +537,7 @@
     <section class="card">
       <div class="flex items-center justify-between">
         <h2 class="text-lg font-semibold text-themed-primary">{$t('harm')}</h2>
-        <button type="button" onclick={() => toggleSection('harm')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['harm'] ? '-rotate-90' : ''}">
+        <button type="button" onclick={() => toggleSection('harm')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['harm'] ? '-rotate-90' : ''}">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
         </button>
       </div>
@@ -558,25 +608,56 @@
     <section class="card">
       <div class="flex items-center justify-between">
         <h2 class="text-lg font-semibold text-themed-primary">{$t('coinAndStash')}</h2>
-        <button type="button" onclick={() => toggleSection('coinStash')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['coinStash'] ? '-rotate-90' : ''}">
+        <button type="button" onclick={() => toggleSection('coinStash')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['coinStash'] ? '-rotate-90' : ''}">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
         </button>
       </div>
       {#if !collapsed['coinStash']}
       <div class="mt-4">
-      <div class="grid gap-6 sm:grid-cols-2">
+      <div class="space-y-4">
         <TrackInput
           label={$t('coin')}
           value={Number(sheet.data.coin) || 0}
           max={4}
           onChange={(v) => updateData('coin', v)}
         />
-        <TrackInput
-          label={$t('stash')}
-          value={Number(sheet.data.stash) || 0}
-          max={schema.stash.max}
-          onChange={(v) => updateData('stash', v)}
-        />
+        <div>
+          <span class="text-sm text-themed-secondary">{$t('stash')}</span>
+          <div class="space-y-1 mt-1">
+            {#each schema.stash.tiers as tier, rowIdx}
+              {@const rowStart = rowIdx * 10}
+              {@const stashValue = Number(sheet.data.stash) || 0}
+              {@const rowFull = stashValue >= tier.value}
+              <div class="flex items-center gap-2">
+                <div class="flex gap-1 flex-wrap flex-1">
+                  {#each Array(10) as _, j}
+                    {@const boxIndex = rowStart + j + 1}
+                    <button
+                      type="button"
+                      onclick={() => {
+                        const newVal = boxIndex === stashValue ? boxIndex - 1 : boxIndex;
+                        updateData('stash', Math.max(0, newVal));
+                      }}
+                      class="track-box {boxIndex <= stashValue ? 'filled' : ''}"
+                      aria-label="{$t('stash')} {boxIndex} of {schema.stash.max}"
+                    >
+                      {boxIndex}
+                    </button>
+                  {/each}
+                </div>
+                <label class="flex items-center gap-1 whitespace-nowrap text-xs text-themed-muted" title={$t('lifestyle')}>
+                  <input
+                    type="checkbox"
+                    checked={rowFull}
+                    disabled
+                    class="rounded border-themed bg-themed-tertiary text-themed-accent focus:ring-2"
+                  />
+                  <span class={rowFull ? 'text-themed-accent font-medium' : ''}>{labelFor(tier)}</span>
+                </label>
+              </div>
+            {/each}
+          </div>
+        </div>
       </div>
       </div>
       {/if}
@@ -592,7 +673,7 @@
           <h2 class="text-lg font-semibold text-themed-primary">{$t('specialAbilities')}</h2>
           <div class="flex items-center gap-3">
             <span class="text-xs text-themed-muted">{$t('nextCost')}: {nextAbilityCost} EXP</span>
-            <button type="button" onclick={() => toggleSection('specialAbilities')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['specialAbilities'] ? '-rotate-90' : ''}">
+            <button type="button" onclick={() => toggleSection('specialAbilities')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['specialAbilities'] ? '-rotate-90' : ''}">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
             </button>
           </div>
@@ -601,33 +682,130 @@
         <div class="mt-4">
         <div class="space-y-3">
           {#each currentPlaybook.specialAbilities as ability}
-            <label class="flex items-start gap-3 p-2 rounded hover:bg-themed-tertiary/50 transition-colors cursor-pointer">
-              <input
-                type="checkbox"
-                checked={selectedAbilities.includes(ability.name)}
-                onchange={() => toggleArrayItem('selectedAbilities', ability.name)}
-                class="mt-1 rounded border-themed bg-themed-tertiary text-themed-accent focus:ring-2"
-              />
-              <div>
-                <span class="font-medium text-themed-primary">{ability.name}</span>
-                {#if ability.nameEn}
-                  <span class="text-themed-faint text-xs ml-1">({ability.nameEn})</span>
-                {/if}
-                <p class="text-sm text-themed-muted mt-0.5">{ability.description}</p>
+            {#if ability.max}
+              <!-- Multi-slot ability (Veteran) -->
+              <div class="p-2 rounded">
+                <div class="mb-2">
+                  <span class="font-medium text-themed-primary">{ability.name}</span>
+                  {#if ability.nameEn}
+                    <span class="text-themed-faint text-xs ml-1">({ability.nameEn})</span>
+                  {/if}
+                  <p class="text-sm text-themed-muted mt-0.5">{ability.description}</p>
+                </div>
+                <div class="{currentPlaybook?.frameCharacteristics ? 'flex flex-wrap gap-2' : 'space-y-2'} ml-1">
+                  {#each Array(ability.max) as _, idx}
+                    <div class="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        checked={idx < veteranAbilities.length}
+                        onchange={() => toggleVeteranSlot(idx)}
+                        class="rounded border-themed bg-themed-tertiary text-themed-accent focus:ring-2 flex-shrink-0"
+                      />
+                      {#if idx < veteranAbilities.length && !currentPlaybook?.frameCharacteristics}
+                        <input
+                          type="text"
+                          value={veteranAbilities[idx]}
+                          oninput={(e) => updateVeteranText(idx, e.currentTarget.value)}
+                          placeholder={ability.description}
+                          class="input text-sm flex-1"
+                        />
+                      {/if}
+                    </div>
+                  {/each}
+                </div>
               </div>
-            </label>
+            {:else}
+              <label class="flex items-start gap-3 p-2 rounded hover:bg-themed-tertiary/50 transition-colors cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={selectedAbilities.includes(ability.name)}
+                  onchange={() => toggleArrayItem('selectedAbilities', ability.name)}
+                  class="mt-1 rounded border-themed bg-themed-tertiary text-themed-accent focus:ring-2"
+                />
+                <div>
+                  <span class="font-medium text-themed-primary">{ability.name}</span>
+                  {#if ability.nameEn}
+                    <span class="text-themed-faint text-xs ml-1">({ability.nameEn})</span>
+                  {/if}
+                  <p class="text-sm text-themed-muted mt-0.5">{ability.description}</p>
+                </div>
+              </label>
+            {/if}
           {/each}
         </div>
         </div>
         {/if}
       </section>
+
+      <!-- Frame Characteristics (Hull only) -->
+      {#if currentPlaybook.frameCharacteristics}
+        <section class="card">
+          <div class="flex items-center justify-between">
+            <h2 class="text-lg font-semibold text-themed-primary">{isEs ? 'Características del armazón' : 'Frame Characteristics'}</h2>
+            <button type="button" onclick={() => toggleSection('frameChars')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['frameChars'] ? '-rotate-90' : ''}">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+            </button>
+          </div>
+          {#if !collapsed['frameChars']}
+          <div class="mt-4">
+            <div class="flex flex-wrap gap-2">
+              {#each currentPlaybook.frameCharacteristics as char}
+                <label class="flex items-center gap-1.5 text-sm py-1 px-2 rounded hover:bg-themed-tertiary/50 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={((sheet.data.frameCharacteristics ?? []) as string[]).includes(char.value)}
+                    onchange={() => toggleArrayItem('frameCharacteristics', char.value)}
+                    class="rounded border-themed bg-themed-tertiary text-themed-accent focus:ring-2"
+                  />
+                  <span class="text-themed-secondary">{labelFor(char)}</span>
+                </label>
+              {/each}
+            </div>
+          </div>
+          {/if}
+        </section>
+      {/if}
+
+      <!-- Restrictions (Vampire only) -->
+      {#if currentPlaybook.restrictions}
+        <section class="card">
+          <div class="flex items-center justify-between">
+            <h2 class="text-lg font-semibold text-themed-primary">{isEs ? 'Restricciones' : 'Restrictions'}</h2>
+            <button type="button" onclick={() => toggleSection('restrictions')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['restrictions'] ? '-rotate-90' : ''}">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+            </button>
+          </div>
+          {#if !collapsed['restrictions']}
+          <div class="mt-4">
+            <div class="space-y-2">
+              {#each currentPlaybook.restrictions as restriction}
+                <label class="flex items-start gap-2 text-sm p-2 rounded hover:bg-themed-tertiary/50 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={((sheet.data.restrictions ?? []) as string[]).includes(restriction.value)}
+                    onchange={() => toggleArrayItem('restrictions', restriction.value)}
+                    class="mt-0.5 rounded border-themed bg-themed-tertiary text-red-500 focus:ring-2"
+                  />
+                  <div>
+                    <span class="text-themed-primary font-medium">{labelFor(restriction)}</span>
+                    {#if restriction.description}
+                      <p class="text-xs text-themed-muted mt-0.5">{restriction.description}</p>
+                    {/if}
+                  </div>
+                </label>
+              {/each}
+            </div>
+          </div>
+          {/if}
+        </section>
+      {/if}
     {/if}
 
     <!-- Items & Load -->
     <section class="card">
       <div class="flex items-center justify-between">
         <h2 class="text-lg font-semibold text-themed-primary">{$t('itemsAndLoad')}</h2>
-        <button type="button" onclick={() => toggleSection('itemsLoad')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['itemsLoad'] ? '-rotate-90' : ''}">
+        <button type="button" onclick={() => toggleSection('itemsLoad')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['itemsLoad'] ? '-rotate-90' : ''}">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
         </button>
       </div>
@@ -654,15 +832,22 @@
         <h3 class="text-sm font-medium text-themed-accent mb-2 uppercase">{$t('sharedItems')}</h3>
         <div class="grid gap-1">
           {#each schema.sharedItems as item}
-            <label class="flex items-center gap-2 text-sm py-1 px-2 rounded hover:bg-themed-tertiary/50 cursor-pointer">
+            <label class="flex items-start gap-2 text-sm py-1 px-2 rounded hover:bg-themed-tertiary/50 cursor-pointer">
               <input
                 type="checkbox"
                 checked={selectedItems.includes(item.name)}
                 onchange={() => toggleArrayItem('selectedItems', item.name)}
-                class="rounded border-themed bg-themed-tertiary text-themed-accent focus:ring-2"
+                class="mt-0.5 rounded border-themed bg-themed-tertiary text-themed-accent focus:ring-2"
               />
-              <span class="text-themed-secondary">{isEs ? item.name : (item.nameEn || item.name)}</span>
-              <span class="text-themed-faint text-xs ml-auto">{item.load}</span>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-1">
+                  <span class="text-themed-secondary {item.load === 0 ? 'italic' : ''}">{isEs ? item.name : (item.nameEn || item.name)}</span>
+                  <span class="text-themed-faint text-xs ml-auto flex-shrink-0">{item.load}</span>
+                </div>
+                {#if item.description}
+                  <p class="text-xs text-themed-faint mt-0.5">{item.description}</p>
+                {/if}
+              </div>
             </label>
           {/each}
         </div>
@@ -674,19 +859,47 @@
           <h3 class="text-sm font-medium text-themed-accent mb-2 uppercase">{$t('playbookItems')}</h3>
           <div class="grid gap-1">
             {#each currentPlaybook.items as item}
-              <label class="flex items-center gap-2 text-sm py-1 px-2 rounded hover:bg-themed-tertiary/50 cursor-pointer" title={item.description || ''}>
+              <label class="flex items-start gap-2 text-sm py-1 px-2 rounded hover:bg-themed-tertiary/50 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={selectedPlaybookItems.includes(item.name)}
                   onchange={() => toggleArrayItem('selectedPlaybookItems', item.name)}
-                  class="rounded border-themed bg-themed-tertiary text-themed-accent focus:ring-2"
+                  class="mt-0.5 rounded border-themed bg-themed-tertiary text-themed-accent focus:ring-2"
                 />
-                <span class="text-themed-secondary">{isEs ? item.name : (item.nameEn || item.name)}</span>
-                <span class="text-themed-faint text-xs ml-auto">{item.load}</span>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-1">
+                    <span class="text-themed-secondary {item.load === 0 ? 'italic' : ''}">{isEs ? item.name : (item.nameEn || item.name)}</span>
+                    <span class="text-themed-faint text-xs ml-auto flex-shrink-0">{item.load}</span>
+                  </div>
+                  {#if item.description}
+                    <p class="text-xs text-themed-faint mt-0.5">{item.description}</p>
+                  {/if}
+                </div>
               </label>
             {/each}
           </div>
         </div>
+
+        <!-- Alchemicals -->
+        {#if currentPlaybook.alchemicals}
+          <div class="mt-4">
+            <h3 class="text-sm font-medium text-themed-accent mb-1 uppercase">{$t('alchemicals')}</h3>
+            <p class="text-xs text-themed-muted mb-2">{$t('alchemicalsNote')}</p>
+            <div class="grid gap-1 sm:grid-cols-2">
+              {#each currentPlaybook.alchemicals as alch}
+                <label class="flex items-center gap-2 text-sm py-1 px-2 rounded hover:bg-themed-tertiary/50 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={((sheet.data.selectedAlchemicals ?? []) as string[]).includes(alch.value)}
+                    onchange={() => toggleArrayItem('selectedAlchemicals', alch.value)}
+                    class="rounded border-themed bg-themed-tertiary text-themed-accent focus:ring-2"
+                  />
+                  <span class="text-themed-secondary">{labelFor(alch)}</span>
+                </label>
+              {/each}
+            </div>
+          </div>
+        {/if}
       {/if}
       </div>
       {/if}
@@ -697,7 +910,7 @@
   <section class="card lg:col-span-2">
     <div class="flex items-center justify-between">
       <h2 class="text-lg font-semibold text-themed-primary">{$t('friendsAndRivals')}</h2>
-      <button type="button" onclick={() => toggleSection('friendsRivals')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['friendsRivals'] ? '-rotate-90' : ''}">
+      <button type="button" onclick={() => toggleSection('friendsRivals')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['friendsRivals'] ? '-rotate-90' : ''}">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
       </button>
     </div>
@@ -707,28 +920,12 @@
       <div>
         <h3 class="text-sm font-medium text-themed-accent mb-2 uppercase">{$t('friends')}</h3>
         <div class="space-y-2">
-          {#if currentPlaybook}
-            {#each currentPlaybook.friends as contact}
-              <label class="flex items-center gap-2 text-sm cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={getContactStatus(contact.name) === 'friend'}
-                  onchange={() => toggleContactStatus(contact.name, 'friend')}
-                  class="rounded border-themed bg-themed-tertiary text-themed-accent focus:ring-2"
-                />
-                <div>
-                  <span class="text-themed-primary font-medium">{contact.name}</span>
-                  <span class="text-themed-muted ml-1">- {contact.description}</span>
-                </div>
-              </label>
-            {/each}
-          {/if}
           {#each customFriends as contact, i}
             <div class="flex items-center gap-2 text-sm group/contact">
               <input
                 type="checkbox"
-                checked={getContactStatus(contact.name) === 'friend'}
-                onchange={() => toggleContactStatus(contact.name, 'friend')}
+                checked={getContactStatus(`friend-${i}`) === 'friend'}
+                onchange={() => toggleContactStatus(`friend-${i}`, 'friend')}
                 class="rounded border-themed bg-themed-tertiary text-themed-accent focus:ring-2"
               />
               <div class="flex-1">
@@ -754,28 +951,12 @@
       <div>
         <h3 class="text-sm font-medium text-red-400 mb-2 uppercase">{$t('rivals')}</h3>
         <div class="space-y-2">
-          {#if currentPlaybook}
-            {#each currentPlaybook.rivals as contact}
-              <label class="flex items-center gap-2 text-sm cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={getContactStatus(contact.name) === 'rival'}
-                  onchange={() => toggleContactStatus(contact.name, 'rival')}
-                  class="rounded border-themed bg-themed-tertiary text-red-500 focus:ring-2"
-                />
-                <div>
-                  <span class="text-themed-primary font-medium">{contact.name}</span>
-                  <span class="text-themed-muted ml-1">- {contact.description}</span>
-                </div>
-              </label>
-            {/each}
-          {/if}
           {#each customRivals as contact, i}
             <div class="flex items-center gap-2 text-sm group/contact">
               <input
                 type="checkbox"
-                checked={getContactStatus(contact.name) === 'rival'}
-                onchange={() => toggleContactStatus(contact.name, 'rival')}
+                checked={getContactStatus(`rival-${i}`) === 'rival'}
+                onchange={() => toggleContactStatus(`rival-${i}`, 'rival')}
                 class="rounded border-themed bg-themed-tertiary text-red-500 focus:ring-2"
               />
               <div class="flex-1">
@@ -807,7 +988,7 @@
   <section class="card lg:col-span-2">
     <div class="flex items-center justify-between">
       <h2 class="text-lg font-semibold text-themed-primary">{$t('customClocks')}</h2>
-      <button type="button" onclick={() => toggleSection('customClocks')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['customClocks'] ? '-rotate-90' : ''}">
+      <button type="button" onclick={() => toggleSection('customClocks')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['customClocks'] ? '-rotate-90' : ''}">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
       </button>
     </div>
@@ -867,7 +1048,7 @@
   <section class="card lg:col-span-2">
     <div class="flex items-center justify-between">
       <h2 class="text-lg font-semibold text-themed-primary">{$t('notes')}</h2>
-      <button type="button" onclick={() => toggleSection('notes')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['notes'] ? '-rotate-90' : ''}">
+      <button type="button" onclick={() => toggleSection('notes')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['notes'] ? '-rotate-90' : ''}">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
       </button>
     </div>
@@ -889,7 +1070,7 @@
     <section class="card lg:col-span-2">
       <div class="flex items-center justify-between">
         <h2 class="text-lg font-semibold text-themed-primary">{$t('gatherInfo')}</h2>
-        <button type="button" onclick={() => toggleSection('gatherInfo')} class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['gatherInfo'] ? '-rotate-90' : ''}">
+        <button type="button" onclick={() => toggleSection('gatherInfo')} aria-label="Toggle" class="text-themed-muted hover:text-themed-primary transition-transform duration-200 {collapsed['gatherInfo'] ? '-rotate-90' : ''}">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
         </button>
       </div>

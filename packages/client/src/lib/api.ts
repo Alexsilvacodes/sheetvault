@@ -87,6 +87,7 @@ export interface AbilityDef {
   name: string;
   nameEn?: string;
   description: string;
+  max?: number;
 }
 
 export interface ContactDef {
@@ -99,12 +100,23 @@ export interface PlaybookDef {
   nameEn: string;
   description: string;
   descriptionEn: string;
+  stressMax?: number;
+  stressLabel?: string;
+  stressLabelEn?: string;
+  traumaLabel?: string;
+  traumaLabelEn?: string;
+  traumaConditions?: OptionDef[];
+  frameCharacteristics?: OptionDef[];
+  restrictions?: OptionDef[];
+  alchemicals?: OptionDef[];
   specialAbilities: AbilityDef[];
   friends: ContactDef[];
   rivals: ContactDef[];
   items: ItemDef[];
   xpTrigger: string;
   xpTriggerEn: string;
+  xpQuestions?: string[];
+  xpQuestionsEn?: string[];
   gatherInfo: string[];
 }
 
