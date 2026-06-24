@@ -21,6 +21,14 @@ export const translations = {
     mySheets: 'My Sheets',
     allSheets: 'All Sheets',
     templates: 'Templates',
+    achievements: 'Achievements',
+
+    // Achievements page
+    achievementsTitle: '⚔ Campaign Achievements ⚔',
+    achievementsEmpty: 'No achievements found.',
+    achievementsError: 'Failed to load achievements.',
+    previous: 'Previous',
+    next: 'Next',
 
     // Role
     player: 'Player',
@@ -257,6 +265,14 @@ export const translations = {
     mySheets: 'Mis Hojas',
     allSheets: 'Todas las Hojas',
     templates: 'Plantillas',
+    achievements: 'Logros',
+
+    // Achievements page
+    achievementsTitle: '⚔ Logros de Campaña ⚔',
+    achievementsEmpty: 'No se encontraron logros.',
+    achievementsError: 'Error al cargar los logros.',
+    previous: 'Anterior',
+    next: 'Siguiente',
 
     // Role
     player: 'Jugador',
