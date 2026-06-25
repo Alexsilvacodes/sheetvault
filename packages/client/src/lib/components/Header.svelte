@@ -26,13 +26,11 @@
 
     <!-- Desktop -->
     <div class="hidden sm:flex items-center gap-4">
-      <nav class="flex gap-4">
-        <a href="/achievements" class="text-themed-secondary hover:text-themed-primary transition-colors">
-          {$t('achievements')}
-        </a>
-      </nav>
       {#if $isLoggedIn}
-        <nav class="flex gap-4 pl-4 border-l border-themed">
+        <nav class="flex gap-4">
+          <a href="/achievements" class="text-themed-secondary hover:text-themed-primary transition-colors">
+            {$t('achievements')}
+          </a>
           <a href="/sheets" class="text-themed-secondary hover:text-themed-primary transition-colors">
             {$t('mySheets')}
           </a>
