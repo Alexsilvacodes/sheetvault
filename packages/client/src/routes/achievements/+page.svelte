@@ -1,5 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { goto } from '$app/navigation';
+  import { isLoggedIn } from '$lib/stores';
   import { t } from '$lib/i18n';
 
   interface Achievement {
@@ -52,6 +54,11 @@
   let current = $derived(achievements[lightboxIndex]);
 
   onMount(async () => {
+    if (!$isLoggedIn) {
+      goto('/');
+      return;
+    }
+
     try {
       const res = await fetch('/achievements.json');
       const filenames: string[] = await res.json();
